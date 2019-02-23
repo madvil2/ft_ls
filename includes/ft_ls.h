@@ -12,6 +12,7 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include <ctype.h>
+# include <sys/ioctl.h>
 
 typedef struct s_ls {
 	int		l;
@@ -21,6 +22,7 @@ typedef struct s_ls {
 	int		t;
 
 	char	**str;
+	int		index;
 }				t_ls;
 
 #endif

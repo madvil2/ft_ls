@@ -1,6 +1,9 @@
 #include "../includes/ft_ls.h"
 
-int main()
+#include <sys/ioctl.h>
+#include <stdio.h>
+
+int main(int argc, char **argv, char **envp)
 {
 /* 	DIR *a;
 	struct dirent *entry;
@@ -17,7 +20,7 @@ int main()
 	struct stat f1;
 	struct stat f2;
 
-	stat("/Users/pcollio-/Projects/ft_ls/test", &f1);
+	stat("test", &f1);
 	// printf( (S_ISDIR(s.st_mode)) ? "d" : "-");
     // printf( (s.st_mode & S_IRUSR) ? "r" : "-");
     // printf( (s.st_mode & S_IWUSR) ? "w" : "-");
@@ -33,15 +36,11 @@ int main()
 	// printf("%s", ctime(&lt));
 
 
-	// printf("%ld\n", f1.st_atime);
-	// printf("%ld\n", f1.st_mtime);
-	printf("test = %ld\n\n", f1.st_ctime);
-	stat("/Users/pcollio-/Projects/ft_ls/libft", &f2);
-	// printf("%ld\n", f2.st_atime);
-	// printf("%ld\n", f2.st_mtime);
-	printf("libf = %ld\n", f2.st_ctime);
+	// printf("test = %ld\n\n", f1.st_ctime);
+	// stat("libft", &f2);
+	// printf("libf = %ld\n", f2.st_ctime);
 
-	// system("tput cols");
 
-	return 0;
+    printf ("columns %d\n", width);
+    return 0;
 }
