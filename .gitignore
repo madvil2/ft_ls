@@ -4,3 +4,5 @@ CMakeLists.txt
 .DS_Store
 ft_ls
 .idea/
+.obj/
+.vscode/

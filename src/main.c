@@ -1,45 +1,61 @@
 #include "../includes/ft_ls.h"
 
-void	get_files(int ac, char **av, int i)
+void init_struct(t_ls *ls)
 {
-
+	ls->l = 0;
+	ls->l_r = 0;
+	ls->r = 0;
+	ls->a = 0;
+	ls->t = 0;
 }
 
-int main()
+int get_opt(int argc, char **argv, t_ls *ls)
 {
-/* 	DIR *a;
-	struct dirent *entry;
+	int index;
+	int c;
 
-	a = opendir("/Users/pcollio-/Projects/ft_ls/test");
+	opterr = 0;
+	index = 0;
 
-	while ((entry = readdir(a)))
+	while ((c = getopt (argc, argv, "lRrat")) != -1)
+		switch (c)
+		{
+			case 'l':
+				ls->l = 1;
+				break;
+			case 'R':
+				ls->l_r = 1;
+				break;
+			case 'r':
+				ls->r = 1;
+				break;
+			case 'a':
+				ls->a = 1;
+				break;
+			case 't':
+				ls->t = 1;
+				break;
+			default:
+				abort ();
+		}
+	printf ("l = %d, R = %d, r = %d, a = %d, t = %d\n", ls->l, ls->l_r, ls->r, ls->a, ls->t);
+	ls->str = (char **)malloc(sizeof(*ls->str) * (argc - index) + 1);
+
+	for (index = optind; index < argc; index++)
 	{
-		ft_printf("%lld - %s [%d] %d %d %lld\n",
-			   entry->d_ino, entry->d_name, entry->d_type, entry->d_reclen, entry->d_namlen, entry->d_seekoff);
+		*ls->str++ = ft_strdup(argv[index]);
+		printf ("ls->str: %s\n", ls->str[index]);
+		printf ("argv: %s\n", argv[index]);
 	}
- */
 
-	struct stat s;
+	return (0);
+}
 
-	stat("/Users/pcollio-/Projects/ft_ls/test", &s);
-	/* printf( (S_ISDIR(s.st_mode)) ? "d" : "-");
-    printf( (s.st_mode & S_IRUSR) ? "r" : "-");
-    printf( (s.st_mode & S_IWUSR) ? "w" : "-");
-    printf( (s.st_mode & S_IXUSR) ? "x" : "-");
-    printf( (s.st_mode & S_IRGRP) ? "r" : "-");
-    printf( (s.st_mode & S_IWGRP) ? "w" : "-");
-    printf( (s.st_mode & S_IXGRP) ? "x" : "-");
-    printf( (s.st_mode & S_IROTH) ? "r" : "-");
-    printf( (s.st_mode & S_IWOTH) ? "w" : "-");
-    printf( (s.st_mode & S_IXOTH) ? "x" : "-"); */
-	/* time_t lt;
-	lt = time(NULL);
-	printf("%s", ctime(&lt)); */
+int	main (int argc, char **argv)
+{
+	t_ls	ls;
 
-	system("tput cols");
-
-
-	ft_printf("ф");
-
-	return 0;
+	init_struct(&ls);
+	get_opt(argc, argv, &ls);
+	return (0);
 }

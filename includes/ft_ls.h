@@ -9,18 +9,18 @@
 # include <time.h>
 # include "../libft/libft.h"
 # include <grp.h>
+# include <unistd.h>
+# include <stdbool.h>
+# include <ctype.h>
 
-struct s_ls {
-	int l;
-	int r;
-	int l_r;
-	int a;
-	int	t;
+typedef struct s_ls {
+	int		l;
+	int		r;
+	int		l_r;
+	int		a;
+	int		t;
 
-
-	
-
-}		t_ls;
-
+	char	**str;
+}				t_ls;
 
 #endif
