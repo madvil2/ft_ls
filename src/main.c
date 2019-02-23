@@ -1,5 +1,10 @@
 #include "../includes/ft_ls.h"
 
+void	get_files(int ac, char **av, int i)
+{
+
+}
+
 int main()
 {
 /* 	DIR *a;
@@ -32,6 +37,7 @@ int main()
 	printf("%s", ctime(&lt)); */
 
 	system("tput cols");
+
 
 	ft_printf("ф");
 
