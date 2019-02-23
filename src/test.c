@@ -1,8 +1,6 @@
 #include "../includes/ft_ls.h"
 
-
-
-int test()
+int main()
 {
 /* 	DIR *a;
 	struct dirent *entry;
@@ -16,27 +14,34 @@ int test()
 	}
  */
 
-	struct stat s;
+	struct stat f1;
+	struct stat f2;
 
-	stat("/Users/pcollio-/Projects/ft_ls/test", &s);
-	/* printf( (S_ISDIR(s.st_mode)) ? "d" : "-");
-    printf( (s.st_mode & S_IRUSR) ? "r" : "-");
-    printf( (s.st_mode & S_IWUSR) ? "w" : "-");
-    printf( (s.st_mode & S_IXUSR) ? "x" : "-");
-    printf( (s.st_mode & S_IRGRP) ? "r" : "-");
-    printf( (s.st_mode & S_IWGRP) ? "w" : "-");
-    printf( (s.st_mode & S_IXGRP) ? "x" : "-");
-    printf( (s.st_mode & S_IROTH) ? "r" : "-");
-    printf( (s.st_mode & S_IWOTH) ? "w" : "-");
-    printf( (s.st_mode & S_IXOTH) ? "x" : "-"); */
-	/* time_t lt;
-	lt = time(NULL);
-	printf("%s", ctime(&lt)); */
-
-	system("tput cols");
+	stat("/Users/pcollio-/Projects/ft_ls/test", &f1);
+	// printf( (S_ISDIR(s.st_mode)) ? "d" : "-");
+    // printf( (s.st_mode & S_IRUSR) ? "r" : "-");
+    // printf( (s.st_mode & S_IWUSR) ? "w" : "-");
+    // printf( (s.st_mode & S_IXUSR) ? "x" : "-");
+    // printf( (s.st_mode & S_IRGRP) ? "r" : "-");
+    // printf( (s.st_mode & S_IWGRP) ? "w" : "-");
+    // printf( (s.st_mode & S_IXGRP) ? "x" : "-");
+    // printf( (s.st_mode & S_IROTH) ? "r" : "-");
+    // printf( (s.st_mode & S_IWOTH) ? "w" : "-");
+    // printf( (s.st_mode & S_IXOTH) ? "x" : "-");
+	// time_t lt;
+	// lt = time(NULL);
+	// printf("%s", ctime(&lt));
 
 
-	ft_printf("ф");
+	// printf("%ld\n", f1.st_atime);
+	// printf("%ld\n", f1.st_mtime);
+	printf("test = %ld\n\n", f1.st_ctime);
+	stat("/Users/pcollio-/Projects/ft_ls/libft", &f2);
+	// printf("%ld\n", f2.st_atime);
+	// printf("%ld\n", f2.st_mtime);
+	printf("libf = %ld\n", f2.st_ctime);
+
+	// system("tput cols");
 
 	return 0;
 }
