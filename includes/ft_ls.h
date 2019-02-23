@@ -23,6 +23,7 @@ typedef struct s_ls {
 
 	char	**str;
 	int		index;
+	int		max;
 }				t_ls;
 
 #endif
