@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcollio- <pcollio-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 14:53:44 by pcollio-          #+#    #+#             */
-/*   Updated: 2019/02/26 19:00:39 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/02/26 20:24:49 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_ls {
 
 	char	**args;
 	char	**files;
+	char	**dir;
 	int		index;
 	int		max;
 }				t_ls;

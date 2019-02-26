@@ -1,4 +1,4 @@
-#include "ft_ls.h"
+#include "../includes/ft_ls.h"
 
 int	init_struct(t_ls *ls)
 {
@@ -28,41 +28,55 @@ int		max_rows(int columns, int amount)
 	return (amount / columns);
 }
 
-int		get_args(int argc, char **argv, t_ls *ls)
+int	flags(char *args, t_ls *ls)
 {
-	int index;
-	int c;
-	int len;
-
-	opterr = 0;
-	index = 0;
-	while ((c = getopt(argc, argv, "lRrat")) != -1)
+	int i = 0;
+	if (args[i] == '-' && args[i + 1] > 32 && args[i + 1] < 127)
 	{
-		if (c == 'l')
-			ls->l = 1;
-		else if (c == 'R')
-			ls->l_r = 1;
-		else if (c == 'r')
-			ls->r = 1;
-		else if (c == 'a')
-			ls->a = 1;
-		else if (c == 't')
-			ls->t = 1;
-		else
-			put_usage(c);
-	}
-	ls->args = (char **)malloc(sizeof(*ls->args) * (argc - index) + 1);
-	index = optind;
-	while (index < argc)
-	{
-		ls->args[ls->index] = ft_strdup(argv[index]);
-		len = (int)ft_strlen(ls->args[ls->index]);
-		if (len > ls->max)
-			ls->max = len;
-		(ls->index)++;
-		index++;
+		i++;
+		while (args[i] > 32 && args[i] < 127)
+		{
+			if (args[i] == 'l')
+				ls->l = 1;
+			else if (args[i] == 'r')
+				ls->r = 1;
+			else if (args[i] == 'R')
+				ls->l_r = 1;
+			else if (args[i] == 'a')
+				ls->a = 1;
+			else if (args[i] == 't')
+				ls->t = 1;
+			else
+				put_usage(args[i]);
+			i++;
+		}
+		return (1); 
 	}
 	return (0);
+}
+
+int files(char *args, t_ls *ls)
+{
+	int len = ft_strlen(args);
+
+	if (len > ls->max)
+		ls->max = len;
+	ls->args[ls->index] = malloc(sizeof(char) * (len + 1));
+	ls->args[ls->index][len] = '\0';
+	int i = 0;
+	while (i < len)
+	{
+		ls->args[ls->index][i] = args[i];
+		i++;
+	}
+	(ls->index)++;
+	return (0);
+}
+
+void malloc_files(int n, t_ls *ls)
+{
+	ls->args = malloc(sizeof(char*) * n);
+	ls->args[n] = NULL;
 }
 
 int get_time(char *f1, char *f2)
@@ -114,6 +128,28 @@ int sort(t_ls *ls)
 	return (0);
 }
 
+int parcer(t_ls *ls, int argc, char **argv)
+{
+	int i = 1;
+	while (argc > 1 && flags(argv[i], ls) == 1)
+	{
+		argc--;
+		i++;
+	}
+	if (argc > 1)
+	{
+		int n = argc;
+		malloc_files(n, ls);
+	}
+	while (argc > 1)
+	{
+		files(argv[i], ls);
+		argc--; 
+		i++;
+	}
+	return (0);
+}
+
 int	format_rows(t_ls *ls)
 {
 	struct winsize w;
@@ -121,8 +157,8 @@ int	format_rows(t_ls *ls)
 	
 	ioctl(0, TIOCGWINSZ, &w);
 	width = w.ws_col;
-
-	int max;
+	
+	int max = ls->max;
 	max = ls->max + (8 - (ls->max % 8));
 	int count_col = width / max;
 
@@ -143,13 +179,15 @@ int	format_rows(t_ls *ls)
 		printf("\n");
 		i++;
 	}
+
+
 	return (0);
 }
 
 
 int	ft_ls(t_ls *ls, int argc, char **argv)
 {
-	get_args(argc, argv, ls);
+	parcer(ls, argc, argv);
 	sort(ls);
 	format_rows(ls);
 
@@ -162,14 +200,14 @@ int main(int argc, char **argv)
 	init_struct(&ls);
 	ft_ls(&ls, argc, argv);
 
-	//	test pars
+	/* 
+	test pars
 	printf("flags:\n-l: %d   -r: %d   -R %d   -a %d   -t %d\n\n", ls.l, ls.r, ls.l_r, ls.a, ls.t);
 	int i = 0;
 	while (i < ls.index)
 	{
 		printf("files:\n%s\n", ls.args[i]);
 		i++;
-	}
-
+	} */
 	return (0);
 }
