@@ -36,7 +36,7 @@ int		get_args(int argc, char **argv, t_ls *ls)
 
 	opterr = 0;
 	index = 0;
-	while ((c = getopt (argc, argv, "lRrat")) != -1)
+	while ((c = getopt(argc, argv, "lRrat")) != -1)
 	{
 		if (c == 'l')
 			ls->l = 1;
@@ -51,13 +51,11 @@ int		get_args(int argc, char **argv, t_ls *ls)
 		else
 			put_usage(*argv[ls->index]);
 	}
-	//printf ("l = %d, R = %d, r = %d, a = %d, t = %d\n", ls->l, ls->l_r, ls->r, ls->a, ls->t);
 	ls->args = (char **)malloc(sizeof(*ls->args) * (argc - index) + 1);
 	index = optind;
 	while (index < argc)
 	{
 		ls->args[ls->index] = ft_strdup(argv[index]);
-		//printf ("ls->str: %s\n", ls->args[(ls->index)]);
 		len = (int)ft_strlen(ls->args[ls->index]);
 		if (len > ls->max)
 			ls->max = len;
@@ -124,7 +122,7 @@ int	format_rows(t_ls *ls)
 	ioctl(0, TIOCGWINSZ, &w);
 	width = w.ws_col;
 
-	int max = ls->max;
+	int max;
 	max = ls->max + (8 - (ls->max % 8));
 	int count_col = width / max;
 
@@ -163,6 +161,15 @@ int main(int argc, char **argv)
 	t_ls ls;
 	init_struct(&ls);
 	ft_ls(&ls, argc, argv);
+
+	//	test pars
+//	printf("flags:\n-l: %d   -r: %d   -R %d   -a %d   -t %d\n\n", ls.l, ls.r, ls.l_r, ls.a, ls.t);
+//	int i = 0;
+//	while (i < ls.index)
+//	{
+//		printf("files:\n%s\n", ls.args[i]);
+//		i++;
+//	}
 
 	return (0);
 }
