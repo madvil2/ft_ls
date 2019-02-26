@@ -1,5 +1,18 @@
-#ifndef _FT_LS_H_
-#define _FT_LS_H_
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_ls.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pcollio- <pcollio-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/24 14:53:44 by pcollio-          #+#    #+#             */
+/*   Updated: 2019/02/26 19:00:39 by pcollio-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+# ifndef FT_LS_H
+
+# define FT_LS_H
 
 # include <stdio.h>
 # include <dirent.h>
@@ -21,7 +34,8 @@ typedef struct s_ls {
 	int		a;
 	int		t;
 
-	char	**str;
+	char	**args;
+	char	**files;
 	int		index;
 	int		max;
 }				t_ls;
