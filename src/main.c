@@ -153,7 +153,7 @@ int parcer(t_ls *ls, int argc, char **argv)
 	}
 
 	//ф-ия, которая считает кол-во файлов и директори
-
+	
 
 
 	if (argc > 1)

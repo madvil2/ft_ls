@@ -24,22 +24,22 @@ int		file_type(const char* path)
 		case S_IFCHR:
 			printf("character device\n");
 			break;
-		case S_IFDIR:  
+		case S_IFDIR:
 			printf("directory\n");
 			break;
-		case S_IFIFO:  
+		case S_IFIFO:
 			printf("FIFO/pipe\n");
 			break;
-		case S_IFLNK:  
+		case S_IFLNK:
 			printf("symlink\n");
 			break;
-		case S_IFREG:  
+		case S_IFREG:
 			printf("regular file\n");
 			break;
-		case S_IFSOCK: 
+		case S_IFSOCK:
 			printf("socket\n");
 			break;
-		default:       
+		default:
 			printf("unknown?\n");
 			break;
 	}
