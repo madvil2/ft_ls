@@ -49,7 +49,7 @@ int		get_args(int argc, char **argv, t_ls *ls)
 		else if (c == 't')
 			ls->t = 1;
 		else
-			put_usage(*argv[ls->index]);
+			put_usage(c);
 	}
 	ls->args = (char **)malloc(sizeof(*ls->args) * (argc - index) + 1);
 	index = optind;
@@ -163,13 +163,13 @@ int main(int argc, char **argv)
 	ft_ls(&ls, argc, argv);
 
 	//	test pars
-//	printf("flags:\n-l: %d   -r: %d   -R %d   -a %d   -t %d\n\n", ls.l, ls.r, ls.l_r, ls.a, ls.t);
-//	int i = 0;
-//	while (i < ls.index)
-//	{
-//		printf("files:\n%s\n", ls.args[i]);
-//		i++;
-//	}
+	printf("flags:\n-l: %d   -r: %d   -R %d   -a %d   -t %d\n\n", ls.l, ls.r, ls.l_r, ls.a, ls.t);
+	int i = 0;
+	while (i < ls.index)
+	{
+		printf("files:\n%s\n", ls.args[i]);
+		i++;
+	}
 
 	return (0);
 }
