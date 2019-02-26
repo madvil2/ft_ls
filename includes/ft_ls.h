@@ -6,7 +6,7 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 14:53:44 by pcollio-          #+#    #+#             */
-/*   Updated: 2019/02/26 20:24:49 by drestles         ###   ########.fr       */
+/*   Updated: 2019/02/26 21:00:12 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <stdbool.h>
 # include <ctype.h>
 # include <sys/ioctl.h>
+# include <errno.h>
 
 typedef struct s_ls {
 	int		l;
@@ -35,9 +36,11 @@ typedef struct s_ls {
 	int		t;
 
 	char	**args;
-	char	**files;
-	char	**dir;
 	int		index;
+	char	**files;
+	int		index_f;
+	char	**dir;
+	int		index_d;
 	int		max;
 }				t_ls;
 

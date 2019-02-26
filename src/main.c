@@ -9,10 +9,25 @@ int	init_struct(t_ls *ls)
 	ls->t = 0;
 	ls->index = 0;
 	ls->max = 0;
+	ls->index_f = 0;
+	ls->index_d = 0;
 
 	return (0);
 }
 
+int		is_file(const char* name)
+{
+	DIR* directory;
+
+	opendir(name);
+	if (directory != NULL)
+	{
+		closedir(directory);
+		return (2);
+	}
+	if (errno == ENOTDIR)
+		return (1);
+}
 
 void	put_usage(char a)
 {
@@ -50,7 +65,7 @@ int	flags(char *args, t_ls *ls)
 				put_usage(args[i]);
 			i++;
 		}
-		return (1); 
+		return (1);
 	}
 	return (0);
 }
@@ -136,6 +151,11 @@ int parcer(t_ls *ls, int argc, char **argv)
 		argc--;
 		i++;
 	}
+
+	//ф-ия, которая считает кол-во файлов и директори
+
+
+
 	if (argc > 1)
 	{
 		int n = argc;
@@ -188,6 +208,10 @@ int	format_rows(t_ls *ls)
 int	ft_ls(t_ls *ls, int argc, char **argv)
 {
 	parcer(ls, argc, argv);
+
+	//делит на 2 массива
+
+	
 	sort(ls);
 	format_rows(ls);
 
