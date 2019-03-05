@@ -55,3 +55,7 @@ if ((tmp = acl_get_link_np((*file)->name, ACL_TYPE_EXTENDED)))
 
 ❌цвета
 ❌-p //ииизи
+
+
+Когда -l юзать lstat
+во всех остальных stat

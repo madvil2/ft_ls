@@ -3,12 +3,14 @@
 #include <unistd.h>
 #include <dirent.h>
 #include <stdio.h>
+#include <sys/xattr.h>
+#include <sys/acl.h>
 
 int		obj_type(const char* path)
 {
 	struct stat path_stat;
 
-	lstat(path, &path_stat);
+	stat(path, &path_stat);
 	if ((path_stat.st_mode & S_IFMT) == S_IFREG)
 		return (0); //regular file
 	else if ((path_stat.st_mode & S_IFMT) == S_IFDIR)
@@ -22,9 +24,31 @@ int		obj_type(const char* path)
 	else if ((path_stat.st_mode & S_IFMT) == S_IFLNK)
 		return(5); //symlink
 	else if ((path_stat.st_mode & S_IFMT) == S_IFSOCK)
-		return(7); //socket
+		return(6); //socket
 	else
 		return(-1); //unknown
+}
+
+int		get_attr(const char* path)
+{
+	acl_t acl = NULL;
+	acl_entry_t dummy;
+	ssize_t xattr = 0;
+
+	acl = acl_get_link_np(path, ACL_TYPE_EXTENDED);
+	if (acl && acl_get_entry(acl, ACL_FIRST_ENTRY, &dummy) == -1) {
+		acl_free(acl);
+		acl = NULL;
+	}
+	xattr = listxattr(path, NULL, 0, XATTR_NOFOLLOW);
+	if (xattr < 0)
+		xattr = 0;
+	if (xattr > 0)
+		return (1); // @
+	else if (acl != NULL)
+		return (2); // +
+	else
+		return (0);
 }
 
 
@@ -73,8 +97,8 @@ int		obj_type(const char* path)
 
 int main(int argc, char **argv, char **envp)
 {
-	
-	printf("\n%d", obj_type("."));
+	//printf("%d\n", get_attr("/Applications"));
+	// printf("\n%d", obj_type("."));
 //	printf("%d", c);
 
 

@@ -105,3 +105,33 @@ int get_time(char *f1, char *f2)
 		return (1);
 	return (0);
 }
+
+void free_files(t_ls *ls)
+{
+	int i = 0;
+	while (i < ls->index_f)
+	{
+		free(ls->files[i]);
+		i++;
+	}
+	free(ls->files);
+}
+
+void free_dirs(t_ls *ls)
+{
+	int i = 0;
+	while (i < ls->index_d)
+	{
+		free(ls->dir[i]);
+		i++;
+	}
+	free(ls->dir);
+}
+
+int ft_strlen_two(char **a)
+{
+	int i = 0;
+	while (a[i])
+		i++;
+	return (i);
+}

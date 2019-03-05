@@ -6,7 +6,7 @@
 /*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 14:53:44 by pcollio-          #+#    #+#             */
-/*   Updated: 2019/03/01 22:51:19 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/05 22:16:55 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,8 @@ int			flags(char *args, t_ls *ls);
 void		malloc_dir(int n, t_ls *ls);
 void		malloc_files(int n, t_ls *ls);
 int			get_time(char *f1, char *f2);
+void		free_files(t_ls *ls);
+void		free_dirs(t_ls *ls);
+int			ft_strlen_two(char **a);
 
 #endif
