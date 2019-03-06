@@ -135,3 +135,20 @@ int ft_strlen_two(char **a)
 		i++;
 	return (i);
 }
+
+int		count_files(const char* path)
+{
+	DIR *d;
+	int count;
+	struct dirent *dir;
+	count = 0;
+
+	d = opendir(path);
+	if (d)
+	{
+		while ((dir = readdir(d)) != NULL)
+			count++; // printf("%s\n", dir->d_name);
+		closedir(d);
+	}
+	return (count);
+}

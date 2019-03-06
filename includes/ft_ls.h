@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 14:53:44 by pcollio-          #+#    #+#             */
-/*   Updated: 2019/03/05 22:16:55 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/06 06:24:46 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ int			get_time(char *f1, char *f2);
 void		free_files(t_ls *ls);
 void		free_dirs(t_ls *ls);
 int			ft_strlen_two(char **a);
+int			count_files(const char* path);
 
 #endif

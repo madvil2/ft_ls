@@ -1,22 +1,5 @@
 #include "../includes/ft_ls.h"
 
-int		count_files(const char* path)
-{
-	DIR *d;
-	int count;
-	struct dirent *dir;
-	count = 0;
-
-	d = opendir(path);
-	if (d)
-	{
-		while ((dir = readdir(d)) != NULL)
-			count++; // printf("%s\n", dir->d_name);
-		closedir(d);
-	}
-	return (count);
-}
-
 int push_files(char *args, t_ls *ls)
 {
 	int len = ft_strlen(args);
@@ -366,6 +349,32 @@ char **dir_to_str(t_ls *ls)
 	return (str);
 }
 
+void	ls_rec(char *str)
+{
+	//int i = 0;
+
+	printf("\n%s:\n", str);
+	char **objs;
+
+
+
+	/* //открывает текущую директрию и записывает всё содержимое с массив, молоча
+	a = sort_rec(a);
+	format_rows_rec(s);
+	int n = ft_strlen_two(a);
+	while (i < n)
+	{
+		if (obj_type(a[i]) == 1)
+		{
+			char *tmp = a[i];
+			tmp = ft_strjoin(tmp, "/");
+			name = ft_strjoin(name, tmp);
+			ls_rec(a, ls, name);
+		}
+		i++;
+	} */
+}
+
 int	ft_ls(t_ls *ls, int argc, char **argv)
 {
 	parcer(ls, argc, argv);
@@ -376,12 +385,12 @@ int	ft_ls(t_ls *ls, int argc, char **argv)
 	char **a = dir_to_str(ls);
 	int n = ft_strlen_two(a);
 	printf("<%d>\n", n);
-	/* int i = 0;
+	int i = 0;
 	while(i < n)
 	{
 		ls_rec(a[i]);
 		i++;
-	} */
+	}
 	return (0);
 }
 
