@@ -136,9 +136,7 @@ int	format_rows(t_ls *ls)
 	ioctl(0, TIOCGWINSZ, &w);
 	width = w.ws_col;
 	
-	printf("LS_MAX = %d\n", ls->max);
 	int max = ls->max + 1;
-	printf("MAX = %d\n", max);
 	int count_col = width / max;
 
 	int max_row = max_rows(count_col, ls->index_f);
@@ -268,12 +266,7 @@ int	format_rows_objs(char **objs, int n, t_ls *ls)
 	
 	ioctl(0, TIOCGWINSZ, &w);
 	width = w.ws_col;
-	
-
-	//!!!!!!!!!!!!!!!!!!!!!! нужно посчитать макс !!!!!!!!!!!!!!!!!!!!
-	//int max = 21;
 	int max = ls->max + (8 - (ls->max % 8));
-	printf("MAX = %d\n", max);
 	int count_col = width / max;
 
 	int max_row = max_rows(count_col, n);
