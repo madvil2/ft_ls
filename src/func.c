@@ -149,7 +149,10 @@ int		count_files(const char* path)
 	if (d)
 	{
 		while ((dir = readdir(d)) != NULL)
-			count++; // printf("%s\n", dir->d_name);
+		{
+			if (dir->d_name[0] != '.')
+				count++; // printf("%s\n", dir->d_name);
+		}
 		closedir(d);
 	}
 	return (count);

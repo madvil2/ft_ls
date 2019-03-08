@@ -117,7 +117,7 @@ int get_time(char *f1, char *f2)
 int main(int argc, char **argv, char **envp)
 {
 
-	printf("%d", get_time("00", "01"));
+	// printf("%d", get_time("00", "01"));
 
 
 	// printf("%d", is_exist("00"));

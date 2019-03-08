@@ -6,11 +6,11 @@
 #    By: drestles <drestles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/06 23:52:30 by pcollio-          #+#    #+#              #
-#    Updated: 2019/03/08 19:30:15 by drestles         ###   ########.fr        #
+#    Updated: 2019/03/08 20:20:38 by drestles         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-PATH_TO_LS="/Users/drestles/Desktop/ft_ls"
+PATH_TO_LS="/Users/drestles/Desktop/ft_ls/"
 CDIR=${PWD}
 RESETCOLOR="$(tput sgr0)"
 # Couleurs (gras)
@@ -65,5 +65,5 @@ else
 fi
 cd ${CDIR}
 initdir
-./test.sh
-rm -rf testdir
+sh test.sh
+# rm -rf testdir

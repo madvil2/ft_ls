@@ -37,6 +37,10 @@ int push_dir(char *args, t_ls *ls)
 int parcer(t_ls *ls, int argc, char **argv)
 {
 	int i = 1;
+	if (argc == 1)
+	{
+
+	}
 	while (argc > 1 && flags(argv[i], ls) == 1)
 	{
 		argc--;
@@ -74,10 +78,13 @@ int parcer(t_ls *ls, int argc, char **argv)
 		//file or dir
 		//printf("%d\n", obj_type(argv[i]));
 		int z = obj_type(argv[i]);
-		if (!z)
-			push_files(argv[i], ls);
-		else
-			push_dir(argv[i], ls);
+		if (is_exist(argv[i]))
+		{
+			if (!z)
+				push_files(argv[i], ls);
+			else
+				push_dir(argv[i], ls);
+		}
 		argc--;
 		i++;
 	}
@@ -93,10 +100,11 @@ int sort(t_ls *ls)
 	while (i < ls->index_f - 1)
 	{
 		j = i + 1;
-		while (j < ls->index)
+		while (j < ls->index_f)
 		{
 			if (ls->t)
 			{
+				//printf ("sort_time\n");
 				if (get_time ((ls->files[i]), (ls->files[j])) > 0)
 				{
 					char *tmp = ls->files[i];
@@ -106,7 +114,7 @@ int sort(t_ls *ls)
 			}
 			else
 			{
-				if (ft_strcmp((ls->args[i]), (ls->args[j])) > 0)
+				if (ft_strcmp((ls->files[i]), (ls->files[j])) > 0)
 				{
 					char *tmp = ls->files[i];
 					ls->files[i] = ls->files[j];
@@ -120,7 +128,6 @@ int sort(t_ls *ls)
 	return (0);
 }
 
-
 int	format_rows(t_ls *ls)
 {
 	struct winsize w;
@@ -129,8 +136,9 @@ int	format_rows(t_ls *ls)
 	ioctl(0, TIOCGWINSZ, &w);
 	width = w.ws_col;
 	
-	int max = ls->max;
-	max = ls->max + (8 - (ls->max % 8));
+	printf("LS_MAX = %d\n", ls->max);
+	int max = ls->max + 1;
+	printf("MAX = %d\n", max);
 	int count_col = width / max;
 
 	int max_row = max_rows(count_col, ls->index_f);
@@ -265,6 +273,7 @@ int	format_rows_objs(char **objs, int n, t_ls *ls)
 	//!!!!!!!!!!!!!!!!!!!!!! нужно посчитать макс !!!!!!!!!!!!!!!!!!!!
 	//int max = 21;
 	int max = ls->max + (8 - (ls->max % 8));
+	printf("MAX = %d\n", max);
 	int count_col = width / max;
 
 	int max_row = max_rows(count_col, n);
@@ -284,7 +293,6 @@ int	format_rows_objs(char **objs, int n, t_ls *ls)
 		printf("\n");
 		i++;
 	}
-
 	return (0);
 }
 
@@ -303,7 +311,6 @@ char **sort_objs(char **obj, int n, t_ls *ls)
 			{
 				if (get_time ((obj[i]), (obj[j])) > 0)
 				{
-					printf("ls->t\n");
 					char *tmp = obj[i];
 					obj[i] = obj[j];
 					obj[j] = tmp;
@@ -328,12 +335,10 @@ char **sort_objs(char **obj, int n, t_ls *ls)
 void	ls_rec(char *str, t_ls *ls)
 {
 	//int i = 0;
-	if (ls->rec)
+	if (ls->rec || ls->index_f)
 		printf("\n%s:\n", str);
 	//char **objs;
 	int n = count_files(str);
-	if (n > 0)
-		n-=2;
 	char **objs;
 	objs = malloc(sizeof(char*) * (n + 1));
 	objs[n] = 0;
@@ -382,7 +387,6 @@ int	ft_ls(t_ls *ls, int argc, char **argv)
 	//отсортировать dir
 	char **a = dir_to_str(ls);
 	int n = ft_strlen_two(a);
-	//printf("<%d>\n", n);
 	int i = 0;
 	while(i < n)
 	{

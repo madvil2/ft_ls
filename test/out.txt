@@ -1,0 +1,10 @@
+--- ../ls.out	2019-03-08 20:23:17.000000000 +0300
++++ ../ft_ls.out	2019-03-08 20:23:17.000000000 +0300
+@@ -1,6 +1 @@
+-adir
+-file1
+-gdir
+-ndir
+-yfile3
+-zfile2
++adir    file1   gdir    ndir    yfile3  zfile2  
