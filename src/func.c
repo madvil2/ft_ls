@@ -11,6 +11,8 @@ int	init_struct(t_ls *ls)
 	ls->max = 0;
 	ls->index_f = 0;
 	ls->index_d = 0;
+	ls->rec = 0;
+	ls->max = 0;
 
 	return (0);
 }
@@ -151,4 +153,33 @@ int		count_files(const char* path)
 		closedir(d);
 	}
 	return (count);
+}
+
+int		is_exist(const char* path)
+{
+	struct stat path_stat;
+
+	return (stat(path, &path_stat) == 0);
+}
+
+int		get_attr(const char* path)
+{
+	acl_t acl = NULL;
+	acl_entry_t dummy;
+	ssize_t xattr = 0;
+
+	acl = acl_get_link_np(path, ACL_TYPE_EXTENDED);
+	if (acl && acl_get_entry(acl, ACL_FIRST_ENTRY, &dummy) == -1) {
+		acl_free(acl);
+		acl = NULL;
+	}
+	xattr = listxattr(path, NULL, 0, XATTR_NOFOLLOW);
+	if (xattr < 0)
+		xattr = 0;
+	if (xattr > 0)
+		return (1); // @
+	else if (acl != NULL)
+		return (2); // +
+	else
+		return (0);
 }

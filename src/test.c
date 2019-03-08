@@ -29,6 +29,13 @@ int		obj_type(const char* path)
 		return(-1); //unknown
 }
 
+int		is_exist(const char* path)
+{
+	struct stat path_stat;
+
+	return (stat(path, &path_stat) == 0);
+}
+
 int		get_attr(const char* path)
 {
 	acl_t acl = NULL;
@@ -51,6 +58,18 @@ int		get_attr(const char* path)
 		return (0);
 }
 
+int get_time(char *f1, char *f2)
+{
+	struct stat s1;
+	struct stat s2;
+ 
+	stat(f1, &s1);
+	stat(f2, &s2);
+ 
+	if (s1.st_ctime > s2.st_ctime)
+		return (1);
+	return (0);
+}
 
 // int		get_type(int a, int b)
 // {
@@ -97,6 +116,11 @@ int		get_attr(const char* path)
 
 int main(int argc, char **argv, char **envp)
 {
+
+	printf("%d", get_time("00", "01"));
+
+
+	// printf("%d", is_exist("00"));
 	//printf("%d\n", get_attr("/Applications"));
 	// printf("\n%d", obj_type("."));
 //	printf("%d", c);
