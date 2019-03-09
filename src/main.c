@@ -37,10 +37,6 @@ int push_dir(char *args, t_ls *ls)
 int parcer(t_ls *ls, int argc, char **argv)
 {
 	int i = 1;
-	if (argc == 1)
-	{
-
-	}
 	while (argc > 1 && flags(argv[i], ls) == 1)
 	{
 		argc--;
@@ -51,11 +47,15 @@ int parcer(t_ls *ls, int argc, char **argv)
 	int	c_f = 0;
 	int	c_d = 0;
 	int	j = i;
+	int nan = 0;
 	int temp_argc = argc;
 	while (temp_argc > 1)
 	{
 		if (is_exist(argv[j]) == 0)
+		{
 			printf("ls: %s: No such file or directory\n", argv[j]);
+			nan = 1;
+		}
 		else if (obj_type(argv[j]) == 0)
 			c_f++;
 		else
@@ -67,6 +67,12 @@ int parcer(t_ls *ls, int argc, char **argv)
 		malloc_files(c_f, ls);
 	if (c_d > 0)
 		malloc_dir(c_d, ls);
+	if (c_f == 0 && c_d == 0 && nan == 0)
+	{
+		malloc_dir(1, ls);
+		push_dir(".", ls);
+		return (0);
+	}
 	/* 
 	if (argc > 1)
 	{
@@ -136,7 +142,8 @@ int	format_rows(t_ls *ls)
 	ioctl(0, TIOCGWINSZ, &w);
 	width = w.ws_col;
 	
-	int max = ls->max + 1;
+	int max = ls->max + (8 - (ls->max % 8));
+	//int max = ls->max + 1;
 	int count_col = width / max;
 
 	int max_row = max_rows(count_col, ls->index_f);
@@ -269,6 +276,8 @@ int	format_rows_objs(char **objs, int n, t_ls *ls)
 	int max = ls->max + (8 - (ls->max % 8));
 	int count_col = width / max;
 
+	//printf("%d\n", max);
+
 	int max_row = max_rows(count_col, n);
 
 	int i = 0;
@@ -327,21 +336,18 @@ char **sort_objs(char **obj, int n, t_ls *ls)
 
 void	ls_rec(char *str, t_ls *ls)
 {
-	//int i = 0;
+	ls->max = 0;
 	if (ls->rec || ls->index_f)
 		printf("\n%s:\n", str);
-	//char **objs;
 	int n = count_files(str);
 	char **objs;
 	objs = malloc(sizeof(char*) * (n + 1));
 	objs[n] = 0;
 	objs = push_dir_files_to_str(str, objs, ls);
-	//printf("%s\n", objs[0]);
 	objs = sort_objs(objs, n, ls);
 	format_rows_objs(objs, n, ls);
 	if (ls->l_r)
 	{
-		ls->max = 0;
 		ls->rec++;
 		int i = 0;
 		while (i < n)
@@ -354,21 +360,6 @@ void	ls_rec(char *str, t_ls *ls)
 			i++;
 		}
 	}
-	/* //открывает текущую директрию и записывает всё содержимое с массив, молоча
-	a = sort_rec(a);
-	format_rows_rec(s);
-	int n = ft_strlen_two(a);
-	while (i < n)
-	{
-		if (obj_type(a[i]) == 1)
-		{
-			char *tmp = a[i];
-			tmp = ft_strjoin(tmp, "/");
-			name = ft_strjoin(name, tmp);
-			ls_rec(a, ls, name);
-		}
-		i++;
-	} */
 }
 
 int	ft_ls(t_ls *ls, int argc, char **argv)
