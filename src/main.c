@@ -34,69 +34,6 @@ int push_dir(char *args, t_ls *ls)
 	return (0);
 }
 
-int parcer(t_ls *ls, int argc, char **argv)
-{
-	int i = 1;
-	while (argc > 1 && flags(argv[i], ls) == 1)
-	{
-		argc--;
-		i++;
-	}
-
-	//ф-ия, которая считает кол-во файлов и директори
-	int	c_f = 0;
-	int	c_d = 0;
-	int	j = i;
-	int nan = 0;
-	int temp_argc = argc;
-	while (temp_argc > 1)
-	{
-		if (is_exist(argv[j]) == 0)
-		{
-			printf("ls: %s: No such file or directory\n", argv[j]);
-			nan = 1;
-		}
-		else if (obj_type(argv[j]) == 0)
-			c_f++;
-		else
-			c_d++;
-		j++;
-		temp_argc--;
-	}
-	if (c_f > 0)
-		malloc_files(c_f, ls);
-	if (c_d > 0)
-		malloc_dir(c_d, ls);
-	if (c_f == 0 && c_d == 0 && nan == 0)
-	{
-		malloc_dir(1, ls);
-		push_dir(".", ls);
-		return (0);
-	}
-	/* 
-	if (argc > 1)
-	{
-		int n = argc;
-		malloc_files(n, ls);
-	} */
-	while (argc > 1)
-	{
-		//file or dir
-		//printf("%d\n", obj_type(argv[i]));
-		int z = obj_type(argv[i]);
-		if (is_exist(argv[i]))
-		{
-			if (!z)
-				push_files(argv[i], ls);
-			else
-				push_dir(argv[i], ls);
-		}
-		argc--;
-		i++;
-	}
-	return (0);
-}
-
 int sort(t_ls *ls)
 {
 	int i;
@@ -110,7 +47,6 @@ int sort(t_ls *ls)
 		{
 			if (ls->t)
 			{
-				//printf ("sort_time\n");
 				if (get_time ((ls->files[i]), (ls->files[j])) > 0)
 				{
 					char *tmp = ls->files[i];
@@ -130,6 +66,18 @@ int sort(t_ls *ls)
 			j++;
 		}
 		i++;
+	}
+	if (ls->r)
+	{
+		i = 0;
+		int med = ls->index_f / 2;
+		while (i < med)
+		{
+			char *tmp = ls->files[i];
+			ls->files[i] = ls->files[ls->index_f - 1 - i];
+			ls->files[ls->index_f -1 - i] = tmp;
+			i++;
+		}
 	}
 	return (0);
 }
@@ -171,7 +119,6 @@ void ls_files(t_ls *ls)
 {
 	sort(ls);
 	format_rows(ls);
-	//рекурсивная ф
 }
 
 
@@ -200,7 +147,7 @@ void	ls_dir(t_ls *ls)
 	int n = 0;
 	while (k < ls->index_d)
 	{
-		n = count_files(ls->dir[k]);
+		n = count_files(ls->dir[k], ls);
 		free_files(ls);
 		malloc_files(n, ls);
 		printf("\n%s:\n", ls->dir[k]);
@@ -244,7 +191,7 @@ char **push_dir_files_to_str(char *path, char **obj, t_ls *ls)
 	{
 		while ((dir = readdir(d)) != NULL)
 		{
-			if (dir->d_name[0] != '.')
+			if (dir->d_name[0] != '.' || ls->a)
 			{
 				char *file = dir->d_name;
 				int n = strlen(file);
@@ -275,11 +222,7 @@ int	format_rows_objs(char **objs, int n, t_ls *ls)
 	width = w.ws_col;
 	int max = ls->max + (8 - (ls->max % 8));
 	int count_col = width / max;
-
-	//printf("%d\n", max);
-
 	int max_row = max_rows(count_col, n);
-
 	int i = 0;
 	int j;
 	while (i < max_row)
@@ -331,6 +274,19 @@ char **sort_objs(char **obj, int n, t_ls *ls)
 		}
 		i++;
 	}
+	if (ls->r)
+	{
+		i = 0;
+		int med = n / 2;
+		n--;
+		while (i < med)
+		{
+			char *tmp = obj[i];
+			obj[i] = obj[n - i];
+			obj[n - i] = tmp;
+			i++;
+		}
+	}
 	return (obj);
 }
 
@@ -339,13 +295,16 @@ void	ls_rec(char *str, t_ls *ls)
 	ls->max = 0;
 	if (ls->rec || ls->index_f)
 		printf("\n%s:\n", str);
-	int n = count_files(str);
+	else if (ls->index_d > 1 || ls->er)
+		printf("%s:\n", str);
+	int n = count_files(str, ls);
 	char **objs;
 	objs = malloc(sizeof(char*) * (n + 1));
 	objs[n] = 0;
 	objs = push_dir_files_to_str(str, objs, ls);
 	objs = sort_objs(objs, n, ls);
 	format_rows_objs(objs, n, ls);
+	ls->rec++;
 	if (ls->l_r)
 	{
 		ls->rec++;
@@ -356,21 +315,75 @@ void	ls_rec(char *str, t_ls *ls)
 			a = ft_strjoin(str, "/");
 			a = ft_strjoin(a, objs[i]);
 			if (obj_type(a) == 1)
-				ls_rec(a, ls);
+			{
+				if (!(objs[i][0] == '.' && objs[i][1] == '\0')
+					&& !(objs[i][0] == '.' && objs[i][1] == '.'))
+					ls_rec(a, ls);
+			}
 			i++;
 		}
 	}
+}
+
+int parcer(t_ls *ls, int argc, char **argv)
+{
+	int i = 1;
+	while (argc > 1 && flags(argv[i], ls) == 1)
+	{
+		argc--;
+		i++;
+	}
+	int	c_f = 0;
+	int	c_d = 0;
+	int	j = i;
+	int temp_argc = argc;
+	while (temp_argc > 1)
+	{
+		if (is_exist(argv[j]) == 0)
+		{
+			printf("ls: %s: No such file or directory\n", argv[j]);
+			ls->er = 1;
+		}
+		else if (obj_type(argv[j]) == 0)
+			c_f++;
+		else
+			c_d++;
+		j++;
+		temp_argc--;
+	}
+	if (c_f > 0)
+		malloc_files(c_f, ls);
+	if (c_d > 0)
+		malloc_dir(c_d, ls);
+	if (c_f == 0 && c_d == 0 && ls->er == 0)
+	{
+		malloc_dir(1, ls);
+		push_dir(".", ls);
+		return (0);
+	}
+	while (argc > 1)
+	{
+		int z = obj_type(argv[i]);
+		if (is_exist(argv[i]))
+		{
+			if (!z)
+				push_files(argv[i], ls);
+			else
+				push_dir(argv[i], ls);
+		}
+		argc--;
+		i++;
+	}
+	return (0);
 }
 
 int	ft_ls(t_ls *ls, int argc, char **argv)
 {
 	parcer(ls, argc, argv);
 	ls_files(ls);
-	//dir_to_str
-	//ls_dir(ls);
-	//отсортировать dir
 	char **a = dir_to_str(ls);
 	int n = ft_strlen_two(a);
+	a = sort_objs(a, n, ls);
 	int i = 0;
 	while(i < n)
 	{
