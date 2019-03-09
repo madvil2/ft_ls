@@ -187,3 +187,134 @@ int		get_attr(const char* path)
 	else
 		return (0);
 }
+
+char **dir_to_str(t_ls *ls)
+{
+	int i = 0;
+	char **str;
+	str = malloc(sizeof(char*) * (ls->index_d + 1));
+	str[ls->index_d] = 0;
+	while (i < ls->index_d)
+	{
+		str[i] = malloc(sizeof(char) * ft_strlen(ls->dir[i] + 1));
+		int j = 0;
+		while (j < (int)ft_strlen(ls->dir[i]))
+		{
+			str[i][j] = ls->dir[i][j];
+			j++;
+		}
+		str[i][j] = '\0';
+		i++;
+	}
+	free_dirs(ls);
+	return (str);
+}
+
+char **push_dir_files_to_str(char *path, char **obj, t_ls *ls)
+{
+	DIR *d;
+	int count;
+	struct dirent *dir;
+	count = 0;
+
+	d = opendir(path);
+	int i = 0;
+	if (d)
+	{
+		while ((dir = readdir(d)) != NULL)
+		{
+			if (dir->d_name[0] != '.' || ls->a)
+			{
+				char *file = dir->d_name;
+				int n = strlen(file);
+				if (n > ls->max)
+					ls->max = n;
+				obj[i] = malloc(sizeof(char) * (n + 1));
+				obj[i][n] = '\0';
+				int j = 0;
+				while (j < n)
+				{
+					obj[i][j] = file[j];
+					j++;
+				}
+				i++;
+			}
+		}
+		closedir(d);
+	}
+	return (obj);
+}
+
+void		push_dir_files(char *path, t_ls *ls)//, t_ls *ls
+{
+	DIR *d;
+	int count;
+	struct dirent *dir;
+	count = 0;
+
+	
+	d = opendir(path);
+	if (d)
+	{
+		while ((dir = readdir(d)) != NULL)
+			if (dir->d_name[0] != '.')
+				push_files(dir->d_name, ls);
+		ls_files(ls);
+		closedir(d);
+	}
+}
+
+int push_files(char *args, t_ls *ls)
+{
+	int len = ft_strlen(args);
+
+	if (len > ls->max)
+		ls->max = len;
+	ls->files[ls->index_f] = malloc(sizeof(char) * (len + 1));
+	ls->files[ls->index_f][len] = '\0';
+	int i = 0;
+	while (i < len)
+	{
+		ls->files[ls->index_f][i] = args[i];
+		i++;
+	}
+	(ls->index_f)++;
+	return (0);
+}
+
+int push_dir(char *args, t_ls *ls)
+{
+	int len = ft_strlen(args);
+
+	ls->dir[ls->index_d] = malloc(sizeof(char) * (len + 1));
+	ls->dir[ls->index_d][len] = '\0';
+	int i = 0;
+	while (i < len)
+	{
+		ls->dir[ls->index_d][i] = args[i];
+		i++;
+	}
+	(ls->index_d)++;
+	return (0);
+}
+
+void ls_files(t_ls *ls)
+{
+	sort(ls);
+	format_rows(ls);
+}
+
+void	ls_dir(t_ls *ls)
+{
+	int k = 0;
+	int n = 0;
+	while (k < ls->index_d)
+	{
+		n = count_files(ls->dir[k], ls);
+		free_files(ls);
+		malloc_files(n, ls);
+		printf("\n%s:\n", ls->dir[k]);
+		push_dir_files(ls->dir[k], ls);
+		k++;
+	}
+}
