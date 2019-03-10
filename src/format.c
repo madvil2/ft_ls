@@ -3,122 +3,81 @@
 /*                                                        :::      ::::::::   */
 /*   format.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 10:01:49 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/10 11:03:25 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/10 12:22:15 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
+void init_format(t_format *format)
+{
+	format->max0 = 0;
+	format->max1 = 0;
+	format->max2 = 0;
+	format->max3 = 0;
+	format->max4 = 0;
+	format->max5 = 0;
+}
+
 int	format_rows(t_ls *ls)
 {
 	struct winsize w;
-	int width;
+	t_format format;
+	int i;
+	int j;
+	int k;
 	
 	ioctl(0, TIOCGWINSZ, &w);
-	width = w.ws_col;
+	format.width = w.ws_col;
 	
-	int max = ls->max + (8 - (ls->max % 8));
-	//int max = ls->max + 1;
-	int count_col = width / max;
+	format.max = ls->max + (8 - (ls->max % 8));
+	format.count_col = format.width / format.max;
 
-	int max_row = max_rows(count_col, ls->index_f);
+	format.max_row = max_rows(format.count_col, ls->index_f);
 
-	int i = 0;
-	int j;
-	while (i < max_row)
+	i = 0;
+	while (i < format.max_row)
 	{
-		int k = 0;
-		while (k < count_col)
+		k = 0;
+		while (k < format.count_col)
 		{
-			j = i + k * max_row;
+			j = i + k * format.max_row;
 			if (j < ls->index_f)
-				printf("%-*s", max, ls->files[j]);
+				printf("%-*s", format.max, ls->files[j]);
 			k++;
 		}
 		printf("\n");
 		i++;
 	}
 
-	return (0);
-}
-
-int	l_format_rows(t_ls *ls)
-{
-	int i = 0;
-	char *chmod;
-	char *user;
-	char *group;
-	char *date;
-	char *name;
-	int max0 = 0;
-	int	max1 = 0;
-	int	max2 = 0;
-	int max3 = 0;
-	int	max4 = 0;
-	int	max5 = 0;
-	while (i < ls->index_f)
-	{
-		int max;
-
-		max = ft_intlen(vtorya_hernya(ls->files[i]));
-		if (max > max0)
-			max0 = max;
-		max = ft_strlen(get_user(ls->files[i]));
-		if (max > max1)
-			max1 = max;
-		max = ft_strlen(get_group(ls->files[i]));
-		if (max > max2)
-			max2 = max;
-		max = ft_intlen(get_major(ls->files[i]));
-		if (max > max3)
-			max3 = max;
-		max = ft_intlen(get_minor(ls->files[i]));
-		if (max > max4)
-			max4 = max;
-		max = ft_intlen(get_size(ls->files[i]));
-		if (max > max5)
-			max5 = max;
-		i++;
-	}
-	i = 0;
-	while (i < ls->index_f)
-	{
-		//здесь нужно фришнуть
-		chmod = get_chmod(ls->files[i]);
-		user = get_user(ls->files[i]);
-		group = get_group(ls->files[i]);
-		date = get_last_time(ls->files[i]);
-		name = put_link(ls->files[i]);
-		printf("%s %*d %*s %*s %*lld %s %s\n", chmod, max0, vtorya_hernya(ls->files[i]),
-			max1, user, max2, group, max5, get_size(ls->files[i]), date, name);
-		i++;
-	}
 	return (0);
 }
 
 int	format_rows_objs(char **objs, int n, t_ls *ls)
 {
-	struct winsize w;
-	int width;
-	
+	struct		winsize w;
+	t_format	format;
+	int			i;
+	int			j;
+	int			k;
+
 	ioctl(0, TIOCGWINSZ, &w);
-	width = w.ws_col;
-	int max = ls->max + (8 - (ls->max % 8));
-	int count_col = width / max;
-	int max_row = max_rows(count_col, n);
-	int i = 0;
-	int j;
-	while (i < max_row)
+	format.width = w.ws_col;
+	format.max = ls->max + (8 - (ls->max % 8));
+	format.count_col = format.width / format.max;
+	format.max_row = max_rows(format.count_col, n);
+	i = 0;
+	while (i < format.max_row)
 	{
-		int k = 0;
-		while (k < count_col)
+		k = 0;
+		while (k < format.count_col)
 		{
-			j = i + k * max_row;
+			j = i + k * format.max_row;
 			if (j < n)
-				printf("%-*s", max, objs[j]);
+				printf("%-*s", format.max, objs[j]);
 			k++;
 		}
 		printf("\n");
@@ -127,80 +86,118 @@ int	format_rows_objs(char **objs, int n, t_ls *ls)
 	return (0);
 }
 
-int	l_format_rows_objs(char **objs, int n, t_ls *ls)
+void format_max(char *file, t_format *format)
 {
-	int total;
-	total = get_total_size(objs, ls);
-	printf ("total %d\n", total);
-	int i = 0;
-	char *file;
-	char *chmod;
-	char *user;
-	char *group;
-	char *date;
-	char *name;
-	int max0 = 0;
-	int	max1 = 0;
-	int	max2 = 0;
-	int max3 = 0;
-	int	max4 = 0;
-	int	max5 = 0;
-	while (i < n)
+	format->max = ft_intlen(vtorya_hernya(file));
+	if (format->max > format->max0)
+		format->max0 = format->max;
+	format->max = ft_strlen(get_user(file));
+	if (format->max > format->max1)
+		format->max1 = format->max;
+	format->max = ft_strlen(get_group(file));
+	if (format->max > format->max2)
+		format->max2 = format->max;
+	format->max = ft_intlen(get_major(file));
+	if (format->max > format->max3)
+		format->max3 = format->max;
+	format->max = ft_intlen(get_minor(file));
+	if (format->max > format->max4)
+		format->max4 = format->max;
+	format->max = ft_intlen(get_size(file));
+	if (format->max > format->max5)
+		format->max5 = format->max;
+}
+
+int	l_format_rows(t_ls *ls)
+{
+	t_format format;
+	int		i;
+
+	init_format(&format);
+	i = 0;
+	while (i < ls->index_f)
 	{
-		//здесь нужно фришнуть
-		file = ft_strjoin(ls->path, objs[i]);
-		int max;
-		max = ft_intlen(vtorya_hernya(file));
-		if (max > max0)
-			max0 = max;
-		max = ft_strlen(get_user(file));
-		if (max > max1)
-			max1 = max;
-		max = ft_strlen(get_group(file));
-		if (max > max2)
-			max2 = max;
-		max = ft_intlen(get_major(file));
-		if (max > max3)
-			max3 = max;
-		max = ft_intlen(get_minor(file));
-		if (max > max4)
-			max4 = max;
-		max = ft_intlen(get_size(file));
-		if (max > max5)
-			max5 = max;
+		format_max(ls->files[i], &format);
 		i++;
 	}
 	i = 0;
-	if (ft_strstr(ls->path, "/dev"))
+	while (i < ls->index_f)
 	{
-		while (i < n)
-		{
-			//здесь нужно фришнуть
-			file = ft_strjoin(ls->path, objs[i]);
-			chmod = get_chmod(file);
-			user = get_user(file);
-			group = get_group(file);
-			date = get_last_time(file);
-			name = put_link(file);
-			printf("%s %*d %-*s  %-*s  %*d, %*d %s %s\n", chmod, max0, vtorya_hernya(file),
-				max1, user, max2, group, max3, get_major(file), max4, get_minor(file),
-				date, name);
-			i++;
-		}
-		return (0);
+		format.chmod = get_chmod(ls->files[i]);
+		format.user = get_user(ls->files[i]);
+		format.group = get_group(ls->files[i]);
+		format.date = get_last_time(ls->files[i]);
+		format.name = put_link(ls->files[i]);
+		printf("%s %*d %*s %*s %*lld %s %s\n", format.chmod, format.max0, vtorya_hernya(ls->files[i]),
+			format.max1, format.user, format.max2, format.group, format.max5, get_size(ls->files[i]), format.date, format.name);
+		i++;
 	}
+	return (0);
+}
+
+void l_format_norm(char *file, t_format *format)
+{
+	format->chmod = get_chmod(file);
+	format->user = get_user(file);
+	format->group = get_group(file);
+	format->date = get_last_time(file);
+	format->name = put_link(file);
+	printf("%s %*d %-*s  %-*s  %*lld %s %s\n", format->chmod, format->max0, vtorya_hernya(file),
+		format->max1, format->user, format->max2, format->group, format->max5, get_size(file), format->date, format->name);
+}
+
+void l_format_print_dev(char *file, t_format *format)
+{
+	format->chmod = get_chmod(file);
+	format->user = get_user(file);
+	format->group = get_group(file);
+	format->date = get_last_time(file);
+	format->name = put_link(file);
+	printf("%s %*d %-*s  %-*s  %*d, %*d %s %s\n", format->chmod, format->max0, vtorya_hernya(file),
+	format->max1, format->user, format->max2, format->group, format->max3, get_major(file), format->max4, get_minor(file),
+	format->date, format->name);
+}
+
+void l_format_dev(t_ls *ls, char **objs, t_format *format, int n)
+{
+	int i;
+	char *file;
+
+	i = 0;
 	while (i < n)
 	{
-		//здесь нужно фришнуть
 		file = ft_strjoin(ls->path, objs[i]);
-		chmod = get_chmod(file);
-		user = get_user(file);
-		group = get_group(file);
-		date = get_last_time(file);
-		name = put_link(file);
-		printf("%s %*d %-*s  %-*s  %*lld %s %s\n", chmod, max0, vtorya_hernya(file),
-			max1, user, max2, group, max5, get_size(file), date, name);
+		l_format_print_dev(file, format);
+		free(file);
 		i++;
+	}
+}
+
+int	l_format_rows_objs(char **objs, int n, t_ls *ls)
+{
+	t_format	format;
+	char		*file;
+	int			i;
+
+	init_format(&format);
+	format.total = get_total_size(objs, ls);
+	printf ("total %d\n", format.total);
+	i = -1;
+	while (++i < n)
+	{
+		file = ft_strjoin(ls->path, objs[i]);
+		format_max(file, &format);
+		free(file);
+	}
+	i = 0;
+	if (ft_strstr(ls->path, "/dev"))
+		l_format_dev(ls, objs, &format, n);
+	i = -1;
+	while (++i < n)
+	{
+		file = ft_strjoin(ls->path, objs[i]);
+		l_format_norm(file, &format);
+		free(file);
 	}
 	return (0);
 }

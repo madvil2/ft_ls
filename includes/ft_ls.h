@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 14:53:44 by pcollio-          #+#    #+#             */
-/*   Updated: 2019/03/10 10:58:00 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/10 12:23:58 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,29 @@
 # include <grp.h>
 # include <time.h>
 # include <libgen.h>
+
+typedef struct	s_format {
+	int total;
+	char *file;
+	char *chmod;
+	char *user;
+	char *group;
+	char *date;
+	char *name;
+	int max;
+	int max0;
+	int	max1;
+	int	max2;
+	int max3;
+	int	max4;
+	int	max5;
+
+	int width;
+	int count_col;
+	int max_row;
+
+}				t_format;
+
 
 typedef struct s_ls {
 	int		l;
@@ -100,5 +123,6 @@ int			l_format_rows_objs(char **objs, int n, t_ls *ls);
 int			l_format_rows(t_ls *ls);
 void		get_max_size(char** files, t_ls *ls);
 int			ft_intlen(int n);
+
 
 #endif
