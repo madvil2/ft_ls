@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   long.c                                             :+:      :+:    :+:   */
+/*   get_long.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 10:01:54 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/10 10:41:40 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/10 11:22:26 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,4 +177,47 @@ char *put_link(char *path)
 		return (res);
 	}
 	return (basename(path));
+}
+
+int			get_attr(const char *path)
+{
+	acl_t		acl;
+	acl_entry_t	dummy;
+	ssize_t		xattr;
+
+	acl = NULL;
+	xattr = 0;
+	acl = acl_get_link_np(path, ACL_TYPE_EXTENDED);
+	if (acl && acl_get_entry(acl, ACL_FIRST_ENTRY, &dummy) == -1)
+	{
+		acl_free(acl);
+		acl = NULL;
+	}
+	xattr = listxattr(path, NULL, 0, XATTR_NOFOLLOW);
+	if (xattr < 0)
+		xattr = 0;
+	if (xattr > 0)
+		return (1);
+	else if (acl != NULL)
+		return (2);
+	else
+		return (0);
+}
+
+int			get_time(char *f1, char *f2, t_ls *ls)
+{
+	struct stat	s1;
+	struct stat	s2;
+	char		*file1;
+	char		*file2;
+
+	file1 = ft_strjoin(ls->path, f1);
+	file2 = ft_strjoin(ls->path, f2);
+	lstat(file1, &s1);
+	lstat(file2, &s2);
+	if (s1.st_mtime < s2.st_mtime)
+		return (1);
+	if (s1.st_mtime == s2.st_mtime)
+		return (0);
+	return (-1);
 }
