@@ -6,7 +6,7 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 10:01:40 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/10 15:25:02 by drestles         ###   ########.fr       */
+/*   Updated: 2019/03/10 15:35:32 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void		ls_rec(char *str, t_ls *ls)
 		ls->rec++;
 		rec_rec(ls, str, objs, n);
 	}
+	free(objs);
 }
 
 int			ft_ls(t_ls *ls, int argc, char **argv)

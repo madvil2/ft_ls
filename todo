@@ -33,6 +33,9 @@ GENERAL:
 	{
 		❌ -lR /dev
 		❌ /Volumes/Storage/cache/drestles/Library/Caches/Metadata/Safari/History
+		✅ лик get_chmod
+		✅ лик get_last_time
+		✅ лик ls_rec_init
 	}
 }
 
