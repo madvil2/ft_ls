@@ -6,7 +6,7 @@
 /*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 14:53:44 by pcollio-          #+#    #+#             */
-/*   Updated: 2019/03/10 06:21:34 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/10 08:18:10 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_ls {
 	int		rec;
 	int		er;
 	char	*path;
+	int		format_max_1;
 }				t_ls;
 
 int			init_struct(t_ls *ls);
@@ -92,9 +93,12 @@ int			vtorya_hernya(const char* path);
 char*		get_user(const char* path);
 char*		get_group(const char* path);
 char		*get_last_time(char *path);
-long long	get_major(char *path);
-long long	get_minor(char *path);
+int			get_major(char *path);
+int			get_minor(char *path);
 char		*put_link(char *path);
-int	l_format_rows_objs(char **objs, int n, t_ls *ls);
+int			l_format_rows_objs(char **objs, int n, t_ls *ls);
+int			l_format_rows(t_ls *ls);
+void		get_max_size(char** files, t_ls *ls);
+int			ft_intlen(int n);
 
 #endif

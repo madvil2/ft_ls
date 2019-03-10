@@ -23,7 +23,7 @@ int		obj_type(const char* path)
 {
 	struct stat path_stat;
 
-	stat(path, &path_stat);
+	lstat(path, &path_stat);
 	if ((path_stat.st_mode & S_IFMT) == S_IFREG)
 		return (0); //regular file
 	else if ((path_stat.st_mode & S_IFMT) == S_IFDIR)
@@ -102,10 +102,10 @@ int get_time(char *f1, char *f2)
 	struct stat s1;
 	struct stat s2;
  
-	stat(f1, &s1);
-	stat(f2, &s2);
+	lstat(f1, &s1);
+	lstat(f2, &s2);
  
-	if (s1.st_ctime > s2.st_ctime)
+	if (s1.st_mtime < s2.st_mtime)
 		return (1);
 	return (0);
 }
@@ -163,7 +163,6 @@ int		count_files(const char* path, t_ls *ls)
 int		is_exist(const char* path)
 {
 	struct stat path_stat;
-
 	return (stat(path, &path_stat) == 0);
 }
 
@@ -302,7 +301,10 @@ int push_dir(char *args, t_ls *ls)
 void ls_files(t_ls *ls)
 {
 	sort(ls);
-	format_rows(ls);
+	if (ls->l)
+		l_format_rows(ls);
+	else
+		format_rows(ls);
 }
 
 void	ls_dir(t_ls *ls)
@@ -318,4 +320,9 @@ void	ls_dir(t_ls *ls)
 		push_dir_files(ls->dir[k], ls);
 		k++;
 	}
+}
+
+int		ft_intlen(int n)
+{
+	return (ft_strlen(ft_itoa(n)));
 }

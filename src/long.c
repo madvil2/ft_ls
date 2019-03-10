@@ -1,13 +1,11 @@
 #include "../includes/ft_ls.h"
 
-
-
 off_t get_size(char* path)
 {
 	struct stat st;
 	off_t size;
 
-	stat(path, &st);
+	lstat(path, &st);
 	size = st.st_size;
 	return (size);
 }
@@ -25,7 +23,7 @@ off_t get_total_size(char** files, t_ls *ls)
 	{
 		file = ft_strjoin(ls->path, files[i]);
 		//здесь нужно фришнуть
-		stat(file, &st);
+		lstat(file, &st);
 		total += st.st_blocks;
 		i++;
 	}
@@ -38,7 +36,7 @@ char* get_chmod(char *path)
 	mode_t perm;
 	char *chmod;
 
-	chmod = malloc(sizeof(char) * 10 + 1);
+	chmod = malloc(sizeof(char) * 11 + 1);
 	if(lstat(path, &st) == 0)
 	{
 		perm = st.st_mode;
@@ -52,21 +50,22 @@ char* get_chmod(char *path)
 			chmod[0] = 'b';
 		else if ((st.st_mode & S_IFMT) == S_IFLNK)
 			chmod[0] = 'l';
-		chmod[1] = (perm & S_IWUSR) ? 'w' : '-';
-		chmod[2] = (perm & S_IXUSR) ? 'x' : '-';
-		chmod[3] = (perm & S_IRGRP) ? 'r' : '-';
-		chmod[4] = (perm & S_IWGRP) ? 'w' : '-';
-		chmod[5] = (perm & S_IXGRP) ? 'x' : '-';
-		chmod[6] = (perm & S_IROTH) ? 'r' : '-';
-		chmod[7] = (perm & S_IWOTH) ? 'w' : '-';
-		chmod[8] = (perm & S_IXOTH) ? 'x' : '-';
+		chmod[1] = (perm & S_IRUSR) ? 'r' : '-';
+		chmod[2] = (perm & S_IWUSR) ? 'w' : '-';
+		chmod[3] = (perm & S_IXUSR) ? 'x' : '-';
+		chmod[4] = (perm & S_IRGRP) ? 'r' : '-';
+		chmod[5] = (perm & S_IWGRP) ? 'w' : '-';
+		chmod[6] = (perm & S_IXGRP) ? 'x' : '-';
+		chmod[7] = (perm & S_IROTH) ? 'r' : '-';
+		chmod[8] = (perm & S_IWOTH) ? 'w' : '-';
+		chmod[9] = (perm & S_IXOTH) ? 'x' : '-';
 		if (get_attr(path) == 1)
-			chmod[9] = '@';
+			chmod[10] = '@';
 		else if (get_attr(path) == 2)
-			chmod[9] = '+';
+			chmod[10] = '+';
 		else
-			chmod[9] = ' ';
-		chmod[10] = '\0';
+			chmod[10] = ' ';
+		chmod[11] = '\0';
 	}
 	return (chmod);
 }
@@ -131,23 +130,23 @@ char *get_last_time(char *path)
 	return (data);
 }
 
-long long get_major(char *path)
+int get_major(char *path)
 {
 	struct stat sp;
-	long long m;
+	int		m;
 
 	stat(path, &sp);
-	m = (long long)major(sp.st_rdev);
+	m = major(sp.st_rdev);
 	return (m);
 }
 
-long long get_minor(char *path)
+int get_minor(char *path)
 {
 	struct stat sp;
-	long long m;
+	int m;
 
 	stat(path, &sp);
-	m = (long long)minor(sp.st_rdev);
+	m = minor(sp.st_rdev);
 	return (m);
 }
 

@@ -13,11 +13,20 @@ char **sort_objs(char **obj, int n, t_ls *ls)
 		{
 			if (ls->t)
 			{
-				if (get_time ((obj[i]), (obj[j])) > 0)
+				if (get_time((obj[i]), (obj[j])) > 0)
 				{
 					char *tmp = obj[i];
 					obj[i] = obj[j];
 					obj[j] = tmp;
+				}
+				else if (get_time((obj[i]), (obj[j])) == 0)
+				{
+					if (ft_strcmp((obj[i]), (obj[j])) > 0)
+					{
+						char *tmp = obj[i];
+						obj[i] = obj[j];
+						obj[j] = tmp;
+					}
 				}
 			}
 			else
@@ -67,6 +76,15 @@ int sort(t_ls *ls)
 					char *tmp = ls->files[i];
 					ls->files[i] = ls->files[j];
 					ls->files[j] = tmp;
+				}
+				else if (get_time ((ls->files[i]), (ls->files[j])) == 0)
+				{
+					if (ft_strcmp((ls->files[i]), (ls->files[j])) > 0)
+					{
+						char *tmp = ls->files[i];
+						ls->files[i] = ls->files[j];
+						ls->files[j] = tmp;
+					}
 				}
 			}
 			else

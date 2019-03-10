@@ -59,10 +59,11 @@ int parcer(t_ls *ls, int argc, char **argv)
 			printf("ls: %s: No such file or directory\n", argv[j]);
 			ls->er = 1;
 		}
-		else if (obj_type(argv[j]) == 0)
-			c_f++;
-		else
+		//
+		else if (obj_type(argv[j]) == 1)
 			c_d++;
+		else
+			c_f++;
 		j++;
 		temp_argc--;
 	}
@@ -81,10 +82,10 @@ int parcer(t_ls *ls, int argc, char **argv)
 		int z = obj_type(argv[i]);
 		if (is_exist(argv[i]))
 		{
-			if (!z)
-				push_files(argv[i], ls);
-			else
+			if (z == 1)
 				push_dir(argv[i], ls);
+			else
+				push_files(argv[i], ls);
 		}
 		argc--;
 		i++;

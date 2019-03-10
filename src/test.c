@@ -5,22 +5,29 @@
 #include <stdio.h>
 #include <sys/xattr.h>
 #include <sys/acl.h>
-
 #include "../includes/ft_ls.h"
 
-
+int get_time(char *f1, char *f2)
+{
+	struct stat s1;
+	struct stat s2;
+ 
+	stat(f1, &s1);
+	stat(f2, &s2);
+ 
+	if (s1.st_ctime > s2.st_ctime)
+		return (1);
+	return (0);
+}
 
 int main(int argc, char **argv, char **envp)
 {
 
+	
+	// printf("%d", ft_intlen(15743));
 
 
-
-	printf("%s", put_link("LINK"));
-
-
-
-
+	printf("%d", get_time("00", "output_ftls"));
 
 
 
