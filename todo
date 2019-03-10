@@ -10,12 +10,14 @@ GENERAL:
             ✅get_l_two.c
         }
         ✅l_format.c
-        ❌main.c
+        ✅main.c
         ✅malloc.c
+		✅parcer.c
         ✅push.c
         ✅sort_files.c
         ✅sort_objs.c
-        ❌utils.c
+        ✅utils.c
+		❌ft_ls.h
     }
 
     KS:

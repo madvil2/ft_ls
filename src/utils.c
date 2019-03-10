@@ -6,18 +6,11 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 11:15:07 by pcollio-          #+#    #+#             */
-/*   Updated: 2019/03/10 12:53:17 by drestles         ###   ########.fr       */
+/*   Updated: 2019/03/10 14:35:13 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_ls.h"
-
-void		put_usage(char a)
-{
-	printf("ls: illegal option -- %c\n", a);
-	printf("usage: ls [-lrRat] [file ...]");
-	exit(1);
-}
 
 int			ft_strlen_two(char **a)
 {

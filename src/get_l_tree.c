@@ -6,7 +6,7 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 12:56:28 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/10 13:43:42 by drestles         ###   ########.fr       */
+/*   Updated: 2019/03/10 14:58:02 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	get_major(char *path)
 	int			m;
 
 	stat(path, &sp);
-	m = major(sp.st_rdev);
+	m = MAJOR(sp.st_rdev);
 	return (m);
 }
 
@@ -28,7 +28,7 @@ int	get_minor(char *path)
 	int			m;
 
 	stat(path, &sp);
-	m = minor(sp.st_rdev);
+	m = MINOR(sp.st_rdev);
 	return (m);
 }
 
