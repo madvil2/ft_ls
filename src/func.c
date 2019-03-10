@@ -14,6 +14,7 @@ int	init_struct(t_ls *ls)
 	ls->rec = 0;
 	ls->max = 0;
 	ls->er = 0;
+	ls->path = 0;
 
 	return (0);
 }

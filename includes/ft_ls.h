@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 14:53:44 by pcollio-          #+#    #+#             */
-/*   Updated: 2019/03/09 06:31:54 by drestles         ###   ########.fr       */
+/*   Updated: 2019/03/10 06:21:34 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # ifndef FT_LS_H
 
 # define FT_LS_H
+# define	major(x)	((int32_t)(((u_int32_t)(x) >> 24) & 0xff))
+# define	minor(x)	((int32_t)((x) & 0xffffff))
 
 # include <stdio.h>
 # include <dirent.h>
@@ -29,6 +31,11 @@
 # include <errno.h>
 # include <sys/xattr.h>
 # include <sys/acl.h>
+# include <stdlib.h>
+# include <pwd.h>
+# include <grp.h>
+# include <time.h>
+# include <libgen.h>
 
 typedef struct s_ls {
 	int		l;
@@ -46,6 +53,7 @@ typedef struct s_ls {
 	int		max;
 	int		rec;
 	int		er;
+	char	*path;
 }				t_ls;
 
 int			init_struct(t_ls *ls);
@@ -75,5 +83,18 @@ void		ls_files(t_ls *ls);
 
 int			format_rows(t_ls *ls);
 int			format_rows_objs(char **objs, int n, t_ls *ls);
+
+int			get_attr(const char* path);
+off_t		get_size(char* path);
+off_t		get_total_size(char** files, t_ls *ls);
+char*		get_chmod(char *path);
+int			vtorya_hernya(const char* path);
+char*		get_user(const char* path);
+char*		get_group(const char* path);
+char		*get_last_time(char *path);
+long long	get_major(char *path);
+long long	get_minor(char *path);
+char		*put_link(char *path);
+int	l_format_rows_objs(char **objs, int n, t_ls *ls);
 
 #endif

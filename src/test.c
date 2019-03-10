@@ -6,116 +6,80 @@
 #include <sys/xattr.h>
 #include <sys/acl.h>
 
-int		obj_type(const char* path)
-{
-	struct stat path_stat;
+#include "../includes/ft_ls.h"
 
-	stat(path, &path_stat);
-	if ((path_stat.st_mode & S_IFMT) == S_IFREG)
-		return (0); //regular file
-	else if ((path_stat.st_mode & S_IFMT) == S_IFDIR)
-		return(1); //directory
-	else if ((path_stat.st_mode & S_IFMT) == S_IFCHR)
-		return(2); //character device
-	else if ((path_stat.st_mode & S_IFMT) == S_IFBLK)
-		return(3); //block device
-	else if ((path_stat.st_mode & S_IFMT) == S_IFIFO)
-		return(4); //FIFO/pipe
-	else if ((path_stat.st_mode & S_IFMT) == S_IFLNK)
-		return(5); //symlink
-	else if ((path_stat.st_mode & S_IFMT) == S_IFSOCK)
-		return(6); //socket
-	else
-		return(-1); //unknown
-}
-
-int		is_exist(const char* path)
-{
-	struct stat path_stat;
-
-	return (stat(path, &path_stat) == 0);
-}
-
-int		get_attr(const char* path)
-{
-	acl_t acl = NULL;
-	acl_entry_t dummy;
-	ssize_t xattr = 0;
-
-	acl = acl_get_link_np(path, ACL_TYPE_EXTENDED);
-	if (acl && acl_get_entry(acl, ACL_FIRST_ENTRY, &dummy) == -1) {
-		acl_free(acl);
-		acl = NULL;
-	}
-	xattr = listxattr(path, NULL, 0, XATTR_NOFOLLOW);
-	if (xattr < 0)
-		xattr = 0;
-	if (xattr > 0)
-		return (1); // @
-	else if (acl != NULL)
-		return (2); // +
-	else
-		return (0);
-}
-
-int get_time(char *f1, char *f2)
-{
-	struct stat s1;
-	struct stat s2;
- 
-	stat(f1, &s1);
-	stat(f2, &s2);
- 
-	if (s1.st_ctime > s2.st_ctime)
-		return (1);
-	return (0);
-}
-
-// int		get_type(int a, int b)
-// {
-// 	if ((a & S_IFMT) == b)
-// 		return (1);
-// 	return (0);
-// }
-
-// int		obj_type(const char* path)
-// {
-// 	struct stat path_stat;
-
-// 	lstat(path, &path_stat);
-// 	// printf("%d", path_stat.st_mode);
-// 	if (get_type(path_stat.st_mode, S_IFREG))
-// 		return (0); //regular file
-// 	else if (get_type(path_stat.st_mode, S_IFDIR))
-// 		return(1); //directory
-// 	else if (get_type(path_stat.st_mode, S_IFCHR))
-// 		return(2); //character device
-// 	else if (get_type(path_stat.st_mode, S_IFBLK))
-// 		return(3); //block device
-// 	else if (get_type(path_stat.st_mode, S_IFIFO))
-// 		return(4); //FIFO/pipe
-// 	else if (get_type(path_stat.st_mode, S_IFLNK))
-// 		return(5); //symlink
-// 	else if (get_type(path_stat.st_mode, S_IFSOCK))
-// 		return(7); //socket
-// 	else
-// 		return(-1); //unknown
-// 	return(0);
-// }
-
-
-// (sp->st_mode)
-// #define	S_ISBLK(m)	(((m) & S_IFMT) == S_IFBLK)	/* block special */
-// #define	S_ISCHR(m)	(((m) & S_IFMT) == S_IFCHR)	/* char special */
-// #define	S_ISDIR(m)	(((m) & S_IFMT) == S_IFDIR)	/* directory */
-// #define	S_ISFIFO(m)	(((m) & S_IFMT) == S_IFIFO)	/* fifo or socket */
-// #define	S_ISREG(m)	(((m) & S_IFMT) == S_IFREG)	/* regular file */
-// #define	S_ISLNK(m)	(((m) & S_IFMT) == S_IFLNK)	/* symbolic link */
-// #define	S_ISSOCK(m)	(((m) & S_IFMT) == S_IFSOCK)	/* socket */
 
 
 int main(int argc, char **argv, char **envp)
 {
+
+
+
+
+	printf("%s", put_link("LINK"));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// printf("%lld", get_major("/dev/ttyq1"));
+	// printf("%lld", get_minor("/dev/ttyq1"));
+	// printf("%s", get_last_time("src"));
+	// printf("%s", get_group("00"));
+	// printf("%d", vtorya_hernya("libft"));
+	// printf("%s", get_chmod("Music"));
+
+	// char **files;
+	// files = malloc(sizeof(char*) *3);
+	// files[2] = NULL;
+	// files[0] = malloc(6);
+	// files[0][0] = 't';
+	// files[0][1] = 'e';
+	// files[0][2] = 's';
+	// files[0][3] = 't';
+	// files[0][4] = '1';
+	// files[0][5] = '\0';
+	// files[1] = malloc(6);
+	// files[1][0] = 't';
+	// files[1][1] = 'e';
+	// files[1][2] = 's';
+	// files[1][3] = 't';
+	// files[1][4] = '2';
+	// files[1][5] = '\0';
+
+	// printf("total = %lld\n", get_total_size(files));
+	// printf("1 = %lld\n", get_size("test1"));
+	// printf("2 = %lld\n", get_size("test2"));
 
 	// printf("%d", get_time("00", "01"));
 

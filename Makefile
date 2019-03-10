@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: drestles <drestles@student.42.fr>          +#+  +:+       +#+         #
+#    By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/19 19:52:14 by pcollio-          #+#    #+#              #
-#    Updated: 2019/03/09 06:32:13 by drestles         ###   ########.fr        #
+#    Updated: 2019/03/10 06:22:05 by pcollio-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ IFLAGS :=		-I $(INC_PATH) -I $(LIB_PATH)
 LFLAGS :=		-lft -L $(LIB_PATH)
 
 HFILES :=		ft_ls
-FILES :=		main func sort format
+FILES :=		main func sort format long
 LIB :=			$(LIB_PATH)libft.a
 
 HDRS :=			$(addprefix $(INC_PATH), $(addsuffix .h, $(HFILES)))

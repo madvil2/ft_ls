@@ -1,3 +1,4 @@
+
 #include "ft_ls.h"
 
 int	format_rows(t_ls *ls)
@@ -56,6 +57,33 @@ int	format_rows_objs(char **objs, int n, t_ls *ls)
 			k++;
 		}
 		printf("\n");
+		i++;
+	}
+	return (0);
+}
+
+int	l_format_rows_objs(char **objs, int n, t_ls *ls)
+{
+	int total;
+	total = get_total_size(objs, ls);
+	printf ("total %d\n", total);
+	int i = 0;
+	char *file;
+	char *chmod;
+	char *user;
+	char *group;
+	char *date;
+	char *name;
+	while (i < n)
+	{
+		//здесь нужно фришнуть
+		file = ft_strjoin(ls->path, objs[i]);
+		chmod = get_chmod(file);
+		user = get_user(file);
+		group = get_group(file);
+		date = get_last_time(file);
+		name = put_link(file);
+		ft_printf("%s %4d %s %s %8lld %s %s\n", chmod, vtorya_hernya(file), user, group, get_size(file), date, name);
 		i++;
 	}
 	return (0);

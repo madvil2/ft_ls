@@ -3,6 +3,8 @@
 void	ls_rec(char *str, t_ls *ls)
 {
 	ls->max = 0;
+	//здесь нужно фри
+	ls->path = ft_strjoin(str, "/");
 	if (ls->rec || ls->index_f)
 		printf("\n%s:\n", str);
 	else if (ls->index_d > 1 || ls->er)
@@ -13,7 +15,10 @@ void	ls_rec(char *str, t_ls *ls)
 	objs[n] = 0;
 	objs = push_dir_files_to_str(str, objs, ls);
 	objs = sort_objs(objs, n, ls);
-	format_rows_objs(objs, n, ls);
+	if (ls->l)
+		l_format_rows_objs(objs, n, ls);
+	else
+		format_rows_objs(objs, n, ls);
 	ls->rec++;
 	if (ls->l_r)
 	{
@@ -108,6 +113,5 @@ int main(int argc, char **argv)
 	t_ls ls;
 	init_struct(&ls);
 	ft_ls(&ls, argc, argv);
-
 	return (0);
 }
