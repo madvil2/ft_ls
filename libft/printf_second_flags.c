@@ -6,11 +6,21 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/26 10:45:49 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/01 20:55:28 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/10 15:53:28 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+static void zvezda(t_prt *prt)
+{
+	int	d;
+
+	d = va_arg(*(prt->ap), int);
+	prt->flag->width = 1;
+	prt->flag->num = d;
+	prt->i++;
+}
 
 int	printf_second_flags(t_prt *prt)
 {
@@ -22,6 +32,8 @@ int	printf_second_flags(t_prt *prt)
 			&& prt->format[prt->i])
 			prt->i++;
 	}
+	if (prt->format[prt->i] == '*')
+		zvezda(prt);
 	if (prt->format[prt->i] == '.')
 	{
 		prt->flag->dot = 1;
