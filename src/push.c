@@ -3,14 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   push.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 11:08:25 by pcollio-          #+#    #+#             */
-/*   Updated: 2019/03/10 11:12:01 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/10 12:50:36 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_ls.h"
+
+static void	push_files_dir(t_ls *ls, struct dirent *dir, char ***obj, int *i)
+{
+	char	*file;
+	int		j;
+	int		n;
+
+	file = dir->d_name;
+	n = strlen(file);
+	if (n > ls->max)
+		ls->max = n;
+	(*obj)[*i] = malloc(sizeof(char) * (n + 1));
+	(*obj)[*i][n] = '\0';
+	j = 0;
+	while (j < n)
+	{
+		(*obj)[*i][j] = file[j];
+		j++;
+	}
+	(*i)++;
+}
 
 char		**push_dir_files_to_str(char *path, char **obj, t_ls *ls)
 {
@@ -18,32 +39,15 @@ char		**push_dir_files_to_str(char *path, char **obj, t_ls *ls)
 	int				count;
 	struct dirent	*dir;
 	int				i;
-	int				j;
-	int				n;
-	char			*file;
 
 	count = 0;
 	d = opendir(path);
-	i = 0;
 	if (d)
 	{
+		i = 0;
 		while ((dir = readdir(d)) != NULL)
 			if (dir->d_name[0] != '.' || ls->a)
-			{
-				file = dir->d_name;
-				n = strlen(file);
-				if (n > ls->max)
-					ls->max = n;
-				obj[i] = malloc(sizeof(char) * (n + 1));
-				obj[i][n] = '\0';
-				j = 0;
-				while (j < n)
-				{
-					obj[i][j] = file[j];
-					j++;
-				}
-				i++;
-			}
+				push_files_dir(ls, dir, &obj, &i);
 		closedir(d);
 	}
 	return (obj);
