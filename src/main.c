@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 10:01:40 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/10 10:01:41 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/10 13:44:11 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int parcer(t_ls *ls, int argc, char **argv)
 			printf("ls: %s: No such file or directory\n", argv[j]);
 			ls->er = 1;
 		}
-		//
 		else if (obj_type(argv[j]) == 1)
 			c_d++;
 		else
