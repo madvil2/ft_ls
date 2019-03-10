@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: drestles <drestles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/19 19:52:14 by pcollio-          #+#    #+#              #
-#    Updated: 2019/03/10 11:26:27 by pcollio-         ###   ########.fr        #
+#    Updated: 2019/03/10 12:27:17 by drestles         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ IFLAGS :=		-I $(INC_PATH) -I $(LIB_PATH)
 LFLAGS :=		-lft -L $(LIB_PATH)
 
 HFILES :=		ft_ls
-FILES :=		format get_long init main malloc push sort_files sort_objs utils
+FILES :=		format get_long init main malloc push sort_files sort_objs utils l_format
 LIB :=			$(LIB_PATH)libft.a
 
 HDRS :=			$(addprefix $(INC_PATH), $(addsuffix .h, $(HFILES)))

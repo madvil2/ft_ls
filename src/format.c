@@ -6,13 +6,13 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 10:01:49 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/10 12:22:15 by drestles         ###   ########.fr       */
+/*   Updated: 2019/03/10 12:34:15 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void init_format(t_format *format)
+void	init_format(t_format *format)
 {
 	format->max0 = 0;
 	format->max1 = 0;
@@ -22,24 +22,21 @@ void init_format(t_format *format)
 	format->max5 = 0;
 }
 
-int	format_rows(t_ls *ls)
+int		format_rows(t_ls *ls)
 {
-	struct winsize w;
-	t_format format;
-	int i;
-	int j;
-	int k;
-	
+	struct winsize	w;
+	t_format		format;
+	int				i;
+	int				j;
+	int				k;
+
 	ioctl(0, TIOCGWINSZ, &w);
 	format.width = w.ws_col;
-	
 	format.max = ls->max + (8 - (ls->max % 8));
 	format.count_col = format.width / format.max;
-
 	format.max_row = max_rows(format.count_col, ls->index_f);
-
-	i = 0;
-	while (i < format.max_row)
+	i = -1;
+	while (++i < format.max_row)
 	{
 		k = 0;
 		while (k < format.count_col)
@@ -50,27 +47,25 @@ int	format_rows(t_ls *ls)
 			k++;
 		}
 		printf("\n");
-		i++;
 	}
-
 	return (0);
 }
 
-int	format_rows_objs(char **objs, int n, t_ls *ls)
+int		format_rows_objs(char **objs, int n, t_ls *ls)
 {
-	struct		winsize w;
-	t_format	format;
-	int			i;
-	int			j;
-	int			k;
+	struct winsize	w;
+	t_format		format;
+	int				i;
+	int				j;
+	int				k;
 
 	ioctl(0, TIOCGWINSZ, &w);
 	format.width = w.ws_col;
 	format.max = ls->max + (8 - (ls->max % 8));
 	format.count_col = format.width / format.max;
 	format.max_row = max_rows(format.count_col, n);
-	i = 0;
-	while (i < format.max_row)
+	i = -1;
+	while (++i < format.max_row)
 	{
 		k = 0;
 		while (k < format.count_col)
@@ -81,12 +76,11 @@ int	format_rows_objs(char **objs, int n, t_ls *ls)
 			k++;
 		}
 		printf("\n");
-		i++;
 	}
 	return (0);
 }
 
-void format_max(char *file, t_format *format)
+void	format_max(char *file, t_format *format)
 {
 	format->max = ft_intlen(vtorya_hernya(file));
 	if (format->max > format->max0)
@@ -108,10 +102,10 @@ void format_max(char *file, t_format *format)
 		format->max5 = format->max;
 }
 
-int	l_format_rows(t_ls *ls)
+int		l_format_rows(t_ls *ls)
 {
-	t_format format;
-	int		i;
+	t_format	format;
+	int			i;
 
 	init_format(&format);
 	i = 0;
@@ -128,76 +122,11 @@ int	l_format_rows(t_ls *ls)
 		format.group = get_group(ls->files[i]);
 		format.date = get_last_time(ls->files[i]);
 		format.name = put_link(ls->files[i]);
-		printf("%s %*d %*s %*s %*lld %s %s\n", format.chmod, format.max0, vtorya_hernya(ls->files[i]),
-			format.max1, format.user, format.max2, format.group, format.max5, get_size(ls->files[i]), format.date, format.name);
+		printf("%s %*d %*s %*s %*lld %s %s\n", format.chmod, format.max0,
+		vtorya_hernya(ls->files[i]), format.max1, format.user, format.max2,
+		format.group, format.max5, get_size(ls->files[i]),
+		format.date, format.name);
 		i++;
-	}
-	return (0);
-}
-
-void l_format_norm(char *file, t_format *format)
-{
-	format->chmod = get_chmod(file);
-	format->user = get_user(file);
-	format->group = get_group(file);
-	format->date = get_last_time(file);
-	format->name = put_link(file);
-	printf("%s %*d %-*s  %-*s  %*lld %s %s\n", format->chmod, format->max0, vtorya_hernya(file),
-		format->max1, format->user, format->max2, format->group, format->max5, get_size(file), format->date, format->name);
-}
-
-void l_format_print_dev(char *file, t_format *format)
-{
-	format->chmod = get_chmod(file);
-	format->user = get_user(file);
-	format->group = get_group(file);
-	format->date = get_last_time(file);
-	format->name = put_link(file);
-	printf("%s %*d %-*s  %-*s  %*d, %*d %s %s\n", format->chmod, format->max0, vtorya_hernya(file),
-	format->max1, format->user, format->max2, format->group, format->max3, get_major(file), format->max4, get_minor(file),
-	format->date, format->name);
-}
-
-void l_format_dev(t_ls *ls, char **objs, t_format *format, int n)
-{
-	int i;
-	char *file;
-
-	i = 0;
-	while (i < n)
-	{
-		file = ft_strjoin(ls->path, objs[i]);
-		l_format_print_dev(file, format);
-		free(file);
-		i++;
-	}
-}
-
-int	l_format_rows_objs(char **objs, int n, t_ls *ls)
-{
-	t_format	format;
-	char		*file;
-	int			i;
-
-	init_format(&format);
-	format.total = get_total_size(objs, ls);
-	printf ("total %d\n", format.total);
-	i = -1;
-	while (++i < n)
-	{
-		file = ft_strjoin(ls->path, objs[i]);
-		format_max(file, &format);
-		free(file);
-	}
-	i = 0;
-	if (ft_strstr(ls->path, "/dev"))
-		l_format_dev(ls, objs, &format, n);
-	i = -1;
-	while (++i < n)
-	{
-		file = ft_strjoin(ls->path, objs[i]);
-		l_format_norm(file, &format);
-		free(file);
 	}
 	return (0);
 }

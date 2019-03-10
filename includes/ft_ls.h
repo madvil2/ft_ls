@@ -6,7 +6,7 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 14:53:44 by pcollio-          #+#    #+#             */
-/*   Updated: 2019/03/10 12:23:58 by drestles         ###   ########.fr       */
+/*   Updated: 2019/03/10 12:29:06 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,8 @@ int			l_format_rows_objs(char **objs, int n, t_ls *ls);
 int			l_format_rows(t_ls *ls);
 void		get_max_size(char** files, t_ls *ls);
 int			ft_intlen(int n);
+void format_max(char *file, t_format *format);
+void init_format(t_format *format);
 
 
 #endif
