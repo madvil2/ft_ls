@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   test.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/10 10:01:46 by drestles          #+#    #+#             */
+/*   Updated: 2019/03/10 10:53:58 by pcollio-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -6,8 +18,9 @@
 #include <sys/xattr.h>
 #include <sys/acl.h>
 #include "../includes/ft_ls.h"
+#include <fts.h>
 
-int get_time(char *f1, char *f2)
+int get_time(char *f1, char *f2, t_ls *ls)
 {
 	struct stat s1;
 	struct stat s2;
@@ -15,19 +28,36 @@ int get_time(char *f1, char *f2)
 	stat(f1, &s1);
 	stat(f2, &s2);
  
-	if (s1.st_ctime > s2.st_ctime)
+	if (s1.st_ctime < s2.st_ctime)
 		return (1);
-	return (0);
+	if (s1.st_ctime == s2.st_ctime)
+		return (0);
+	return (-1);
 }
 
 int main(int argc, char **argv, char **envp)
 {
-
+	FTS *ftsp;
+	FTSENT *p;
+	int ch_options, error;
+	int rval = EXIT_SUCCESS;
+	int f_listdot;
 	
-	// printf("%d", ft_intlen(15743));
+	while ((p = fts_read(ftsp)) != NULL)
+		switch (p->fts_info) {
+		case FTS_DC:
+			warnx("%s: directory causes a cycle", p->fts_name);
+			break;
+		case FTS_DNR:
+		case FTS_ERR:
+			warnx("%s: %s", p->fts_name, strerror(p->fts_errno));
+			rval = EXIT_FAILURE;
+			break;
+		case FTS_D:
+			if (p->fts_level != FTS_ROOTLEVEL &&
+			    p->fts_name[0] == '.' && !f_listdot)
+				break;
 
-
-	printf("%d", get_time("00", "output_ftls"));
 
 
 

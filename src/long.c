@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   long.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/10 10:01:54 by drestles          #+#    #+#             */
+/*   Updated: 2019/03/10 10:41:40 by pcollio-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/ft_ls.h"
 
 off_t get_size(char* path)
@@ -133,7 +145,7 @@ char *get_last_time(char *path)
 int get_major(char *path)
 {
 	struct stat sp;
-	int		m;
+	int		m = 0;
 
 	stat(path, &sp);
 	m = major(sp.st_rdev);
@@ -143,7 +155,7 @@ int get_major(char *path)
 int get_minor(char *path)
 {
 	struct stat sp;
-	int m;
+	int m = 0;
 
 	stat(path, &sp);
 	m = minor(sp.st_rdev);
