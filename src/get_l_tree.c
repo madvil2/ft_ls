@@ -6,7 +6,7 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 12:56:28 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/10 14:58:02 by drestles         ###   ########.fr       */
+/*   Updated: 2019/03/10 15:19:27 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int	get_time(char *f1, char *f2, t_ls *ls)
 	file2 = ft_strjoin(ls->path, f2);
 	lstat(file1, &s1);
 	lstat(file2, &s2);
+	free(file1);
+	free(file2);
 	if (s1.st_mtime < s2.st_mtime)
 		return (1);
 	if (s1.st_mtime == s2.st_mtime)

@@ -6,7 +6,7 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 10:01:40 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/10 14:33:57 by drestles         ###   ########.fr       */
+/*   Updated: 2019/03/10 15:25:02 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static char	**ls_rec_init(t_ls *ls, char *str, int *n)
 	char **objs;
 
 	ls->max = 0;
+	if (ls->rec)
+		free(ls->path);
 	ls->path = ft_strjoin(str, "/");
 	if (ls->rec || ls->index_f)
 		printf("\n%s:\n", str);
@@ -39,13 +41,14 @@ static void	rec_rec(t_ls *ls, char *str, char **objs, int n)
 	while (i < n)
 	{
 		a = ft_strjoin(str, "/");
-		a = ft_strjoin(a, objs[i]);
+		a = ft_strjoin_left(a, objs[i]);
 		if (obj_type(a) == 1)
 		{
 			if (!(objs[i][0] == '.' && objs[i][1] == '\0')
 				&& !(objs[i][0] == '.' && objs[i][1] == '.'))
 				ls_rec(a, ls);
 		}
+		free(a);
 		i++;
 	}
 }

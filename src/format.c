@@ -6,7 +6,7 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 10:01:49 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/10 14:40:18 by drestles         ###   ########.fr       */
+/*   Updated: 2019/03/10 15:21:42 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ int		l_format_rows(t_ls *ls)
 		vtorya_hernya(ls->files[i]), format.max1, format.user, format.max2,
 		format.group, format.max5, get_size(ls->files[i]),
 		format.date, format.name);
+		free(format.name);
 		i++;
 	}
 	return (0);

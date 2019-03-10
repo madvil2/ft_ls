@@ -6,7 +6,7 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 12:25:18 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/10 12:37:06 by drestles         ###   ########.fr       */
+/*   Updated: 2019/03/10 15:21:27 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	l_format_norm(char *file, t_format *format)
 	printf("%s %*d %-*s  %-*s  %*lld %s %s\n", format->chmod, format->max0,
 	vtorya_hernya(file), format->max1, format->user, format->max2,
 	format->group, format->max5, get_size(file), format->date, format->name);
+	free(format->name);
 }
 
 static void	l_format_print_dev(char *file, t_format *format)
@@ -35,6 +36,7 @@ static void	l_format_print_dev(char *file, t_format *format)
 	format->max0, vtorya_hernya(file), format->max1, format->user,
 	format->max2, format->group, format->max3, get_major(file),
 	format->max4, get_minor(file), format->date, format->name);
+	free(format->name);
 }
 
 static void	l_format_dev(t_ls *ls, char **objs, t_format *format, int n)

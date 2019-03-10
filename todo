@@ -1,6 +1,6 @@
 GENERAL:
 {
-    ❌NORMEEE:
+    ✅NORMEEE:
     {
         ✅format.c
         ✅get_long.c
@@ -17,7 +17,7 @@ GENERAL:
         ✅sort_files.c
         ✅sort_objs.c
         ✅utils.c
-		❌ft_ls.h
+		✅ft_ls.h
     }
 
     KS:
@@ -28,35 +28,25 @@ GENERAL:
         ✅-t: проверить сортировку по времени. скорее всего, проблема в функции get_time
         ❌искать баги и ошибки (кроме флага -l)
         
-        ❌рефакторинг (только после флага -l)
-        {
-            ❌жоский рефакторинг
-            ❌понятный рефакторинг
-            ❌бонус парт
-            {
-                ❌добавить комментарии к некоторым функциям
-                ❌сделать супер красивый и читаемый код
-            }
-        }
     }
-    ❌исправить сегу (./ft_ls -lR /dev)
-    ❌/Volumes/Storage/cache/drestles/Library/Caches/Metadata/Safari/History:
+	❌BAGS AND ERRORS:
+	{
+		❌ -lR /dev
+		❌ /Volumes/Storage/cache/drestles/Library/Caches/Metadata/Safari/History
+	}
 }
 
 TO ASK:
 {
     ✅колонки
     ✅миноры и мажоры //lstat == stat (!link)
-    ❌что происходит? (ls -R /dev)
+    ✅что происходит? (ls -R /dev)
     ❌что мы упустили?
 }
 
 BONUS:
 {
-    ❌+@
+    ✅+@
     ❌цвета
     ❌-p //ииизи
 }
-
-
-./ft_ls -Rar done includes 1 2 todo libft

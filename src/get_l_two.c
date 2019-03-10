@@ -6,7 +6,7 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 12:56:31 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/10 13:42:18 by drestles         ###   ########.fr       */
+/*   Updated: 2019/03/10 15:17:21 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ char	*put_link(char *path)
 	if ((st.st_mode & S_IFMT) == S_IFLNK)
 	{
 		res = ft_strdup(basename(path));
-		res = ft_strjoin(res, " -> ");
-		res = ft_strjoin(res, basename(realpath(path, NULL)));
+		res = ft_strjoin_left(res, " -> ");
+		res = ft_strjoin_left(res, basename(realpath(path, NULL)));
 		return (res);
 	}
 	return (basename(path));
