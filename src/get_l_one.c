@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_l_one.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 12:56:26 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/13 00:04:52 by drestles         ###   ########.fr       */
+/*   Updated: 2019/03/13 01:20:49 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ int			get_attr(const char *path)
 		acl = NULL;
 	}
 	xattr = listxattr(path, NULL, 0, XATTR_NOFOLLOW);
-	if (xattr < 0)
-		xattr = 0;
 	if (xattr > 0)
 	{
 		acl_free(acl);
@@ -59,8 +57,7 @@ int			get_attr(const char *path)
 		acl_free(acl);
 		return (2);
 	}
-	else
-		return (0);
+	return (0);
 }
 
 static void	chmod_help(struct stat st, char **chmod)
@@ -120,7 +117,7 @@ int			vtorya_hernya(const char *path)
 	lstat(path, &st);
 	if ((st.st_mode & S_IFMT) == S_IFDIR)
 	{
-		if((d = opendir(path)))
+		if ((d = opendir(path)))
 		{
 			while ((dir = readdir(d)) != NULL)
 				count++;

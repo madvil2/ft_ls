@@ -6,7 +6,7 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 12:56:31 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/13 00:04:56 by drestles         ###   ########.fr       */
+/*   Updated: 2019/03/13 01:07:42 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ char	*get_user(const char *path)
 	struct passwd	*pw;
 
 	stat(path, &info);
-	pw = getpwuid(info.st_uid); //сделать return (NULL)
-	return ((char *)pw->pw_name);
+	if ((pw = getpwuid(info.st_uid)))
+		return ((char *)pw->pw_name);
+	return ("0");
 }
 
 char	*get_group(const char *path)
