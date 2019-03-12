@@ -19,6 +19,8 @@ GENERAL:
         ✅utils.c
 		✅ft_ls.h
     }
+    error managment
+        ❌inaccessible file/folder [+1pts]
 
     KS:
         ✅переделать принтф под обработку *
@@ -26,13 +28,13 @@ GENERAL:
     KOSTYA:
     {
         ✅-t: проверить сортировку по времени. скорее всего, проблема в функции get_time
-        ❌искать баги и ошибки (кроме флага -l)
+        ✅искать баги и ошибки (кроме флага -l)
         
     }
-	❌BAGS AND ERRORS:
+	✅BAGS AND ERRORS:
 	{
-		❌ -lR /dev
-		❌ /Volumes/Storage/cache/drestles/Library/Caches/Metadata/Safari/History
+		✅ -lR /dev
+		✅ /Volumes/Storage/cache/drestles/Library/Caches/Metadata/Safari/History
 		✅ лик get_chmod
 		✅ лик get_last_time
 		✅ лик ls_rec_init
@@ -53,3 +55,5 @@ BONUS:
     ❌цвета
     ❌-p //ииизи
 }
+
+test setuid/setgid/stickybit [+1pts]
