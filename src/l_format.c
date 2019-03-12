@@ -6,7 +6,7 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 12:25:18 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/12 23:14:55 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/12 23:15:03 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	l_format_print_dev(char *file, t_format *format)
 	format->group = get_group(file);
 	format->date = get_last_time(file);
 	format->name = put_link(file);
-	ft_printf("%s %*d %-*s  %-*s  %*d, %*d %s %s\n", format->chmod,
+	printf("%s %*d %-*s  %-*s  %*d, %*d %s %s\n", format->chmod,
 	format->max0, vtorya_hernya(file), format->max1, format->user,
 	format->max2, format->group, format->max3, get_major(file),
 	format->max4, get_minor(file), format->date, format->name);

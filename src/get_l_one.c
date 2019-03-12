@@ -6,7 +6,7 @@
 /*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 12:56:26 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/12 23:28:13 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/12 23:53:11 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,15 @@ int			get_attr(const char *path)
 	if (xattr < 0)
 		xattr = 0;
 	if (xattr > 0)
+	{
+		acl_free(acl);
 		return (1);
+	}
 	else if (acl != NULL)
+	{
+		acl_free(acl);
 		return (2);
+	}
 	else
 		return (0);
 }
