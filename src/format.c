@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   format.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 10:01:49 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/10 16:04:15 by drestles         ###   ########.fr       */
+/*   Updated: 2019/03/12 22:03:54 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	format_max(char *file, t_format *format)
 	format->max = ft_intlen(vtorya_hernya(file));
 	if (format->max > format->max0)
 		format->max0 = format->max;
-	format->max = ft_strlen(get_user(file));
+	format->max = ft_strlen(get_user(file)); // обработать NULL
 	if (format->max > format->max1)
 		format->max1 = format->max;
 	format->max = ft_strlen(get_group(file));

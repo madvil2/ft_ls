@@ -6,7 +6,7 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 12:25:18 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/10 16:00:28 by drestles         ###   ########.fr       */
+/*   Updated: 2019/03/12 23:14:55 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ static void	l_format_norm(char *file, t_format *format)
 	ft_printf("%s %*d %-*s  %-*s  %*lld %s %s\n", format->chmod, format->max0,
 	vtorya_hernya(file), format->max1, format->user, format->max2,
 	format->group, format->max5, get_size(file), format->date, format->name);
+	free(format->date);
+	free(format->chmod);
+	free(format->name);
 }
 
 static void	l_format_print_dev(char *file, t_format *format)
@@ -35,9 +38,9 @@ static void	l_format_print_dev(char *file, t_format *format)
 	format->max0, vtorya_hernya(file), format->max1, format->user,
 	format->max2, format->group, format->max3, get_major(file),
 	format->max4, get_minor(file), format->date, format->name);
-	free(format->name);
-	free(format->chmod);
 	free(format->date);
+	free(format->chmod);
+	free(format->name);
 }
 
 static void	l_format_dev(t_ls *ls, char **objs, t_format *format, int n)
@@ -67,19 +70,24 @@ int			l_format_rows_objs(char **objs, int n, t_ls *ls)
 	i = -1;
 	while (++i < n)
 	{
+//		printf("i = %d n = %d\n", i, n);
 		file = ft_strjoin(ls->path, objs[i]);
 		format_max(file, &format);
 		free(file);
 	}
-	i = 0;
 	if (ft_strstr(ls->path, "/dev"))
 		l_format_dev(ls, objs, &format, n);
-	i = -1;
-	while (++i < n)
+	else
 	{
-		file = ft_strjoin(ls->path, objs[i]);
-		l_format_norm(file, &format);
-		free(file);
+		i = -1;
+		while (++i < n)
+		{
+//			printf("i = %d n = %d\n", i, n);
+			file = ft_strjoin(ls->path, objs[i]);
+			l_format_norm(file, &format);
+			free(file);
+		}
 	}
+
 	return (0);
 }

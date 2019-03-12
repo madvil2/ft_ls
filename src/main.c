@@ -6,7 +6,7 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 10:01:40 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/10 16:00:39 by drestles         ###   ########.fr       */
+/*   Updated: 2019/03/12 20:47:06 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void		ls_rec(char *str, t_ls *ls)
 		ls->rec++;
 		rec_rec(ls, str, objs, n);
 	}
-	free(objs);
+	ft_freearr(objs, ft_strlen_two(objs));
 }
 
 int			ft_ls(t_ls *ls, int argc, char **argv)
@@ -89,6 +89,8 @@ int			ft_ls(t_ls *ls, int argc, char **argv)
 		ls_rec(a[i], ls);
 		i++;
 	}
+	ft_freearr(a, i);
+	free(ls->path);
 	return (0);
 }
 

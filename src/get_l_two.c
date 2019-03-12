@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_l_two.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 12:56:31 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/10 15:17:21 by drestles         ###   ########.fr       */
+/*   Updated: 2019/03/12 22:09:00 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*get_user(const char *path)
 	struct passwd	*pw;
 
 	stat(path, &info);
-	pw = getpwuid(info.st_uid);
+	pw = getpwuid(info.st_uid); //сделать return (NULL)
 	return ((char *)pw->pw_name);
 }
 
@@ -71,8 +71,8 @@ char	*put_link(char *path)
 	{
 		res = ft_strdup(basename(path));
 		res = ft_strjoin_left(res, " -> ");
-		res = ft_strjoin_left(res, basename(realpath(path, NULL)));
+		res = ft_strjoin_left(res, basename(path));
 		return (res);
 	}
-	return (basename(path));
+	return (ft_strdup(basename(path)));
 }
