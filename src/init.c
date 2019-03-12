@@ -6,7 +6,7 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 11:20:38 by pcollio-          #+#    #+#             */
-/*   Updated: 2019/03/13 00:30:48 by drestles         ###   ########.fr       */
+/*   Updated: 2019/03/13 00:38:59 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ void		ls_files(t_ls *ls)
 		l_format_rows(ls);
 	else
 		format_rows(ls);
-	free_files(ls);
+	if (ls->index_f > 0)
+		free_files(ls);
 }
 
 void		ls_dir(t_ls *ls)
