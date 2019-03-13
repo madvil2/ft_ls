@@ -1,59 +1,8 @@
-GENERAL:
+❌FLAGS:
 {
-    ✅NORMEEE:
-    {
-        ✅format.c
-        ✅get_long.c
-        {
-            ✅get_l_one.c
-            ✅get_l_tree.c
-            ✅get_l_two.c
-        }
-        ✅l_format.c
-        ✅main.c
-        ✅malloc.c
-		✅parcer.c
-        ✅push.c
-        ✅sort_files.c
-        ✅sort_objs.c
-        ✅utils.c
-		✅ft_ls.h
-    }
-    error managment
-        ❌inaccessible file/folder [+1pts]
-
-    KS:
-        ✅переделать принтф под обработку *
-
-    KOSTYA:
-    {
-        ✅-t: проверить сортировку по времени. скорее всего, проблема в функции get_time
-        ✅искать баги и ошибки (кроме флага -l)
-        
-    }
-	✅BAGS AND ERRORS:
-	{
-		✅ -lR /dev
-		✅ /Volumes/Storage/cache/drestles/Library/Caches/Metadata/Safari/History
-		✅ лик get_chmod
-		✅ лик get_last_time
-		✅ лик ls_rec_init
-	}
+	✅-A
+	❌-p
+	❌-S
+	❌-u
+	❌-1 (-l главнее -1)
 }
-
-TO ASK:
-{
-    ✅колонки
-    ✅миноры и мажоры //lstat == stat (!link)
-    ✅что происходит? (ls -R /dev)
-    ❌что мы упустили?
-}
-
-BONUS:
-{
-    ✅+@
-    ❌цвета
-    ❌-p //ииизи
-}
-
-test setuid/setgid/stickybit [+1pts]

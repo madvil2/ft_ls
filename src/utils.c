@@ -6,7 +6,7 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 11:15:07 by pcollio-          #+#    #+#             */
-/*   Updated: 2019/03/13 00:41:14 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/13 06:31:53 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,10 @@ int			count_files(const char *path, t_ls *ls)
 	{
 		while ((dir = readdir(d)) != NULL)
 		{
-			if (dir->d_name[0] != '.' || ls->a)
-				count++;
+			if (dir->d_name[0] != '.' || ls->a || ls->l_a)
+				if ((ls->l_a && dir->d_name[1] != '.'
+				&& dir->d_name[1]) || !ls->l_a)
+					count++;
 		}
 		closedir(d);
 	}

@@ -6,7 +6,7 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 11:20:38 by pcollio-          #+#    #+#             */
-/*   Updated: 2019/03/13 00:41:14 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/13 06:35:01 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,11 @@ int			flags(char *args, t_ls *ls)
 		i++;
 		while (args[i] > 32 && args[i] < 127)
 		{
-			if (args[i] == 'l')
-				ls->l = 1;
-			else if (args[i] == 'r')
-				ls->r = 1;
-			else if (args[i] == 'R')
-				ls->l_r = 1;
-			else if (args[i] == 'a')
-				ls->a = 1;
-			else if (args[i] == 't')
-				ls->t = 1;
-			else
-				put_usage(args[i]);
+			parse_flags(ls, args[i]);
 			i++;
 		}
+		if (ls->a)
+			ls->l_a = 0;
 		return (1);
 	}
 	return (0);

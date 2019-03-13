@@ -6,11 +6,29 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 13:47:04 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/13 00:41:14 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/13 06:37:25 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_ls.h"
+
+void		parse_flags(t_ls *ls, char a)
+{
+	if (a == 'l')
+		ls->l = 1;
+	else if (a == 'r')
+		ls->r = 1;
+	else if (a == 'R')
+		ls->l_r = 1;
+	else if (a == 'A')
+		ls->l_a = 1;
+	else if (a == 'a')
+		ls->a = 1;
+	else if (a == 't')
+		ls->t = 1;
+	else
+		put_usage(a);
+}
 
 void		put_usage(char a)
 {

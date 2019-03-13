@@ -6,11 +6,12 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/26 10:45:49 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/13 05:31:43 by drestles         ###   ########.fr       */
+/*   Updated: 2019/03/13 06:51:48 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 static void	zvezda(t_prt *prt)
 {

@@ -6,7 +6,7 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 14:53:44 by pcollio-          #+#    #+#             */
-/*   Updated: 2019/03/13 00:41:14 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/13 06:10:16 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct	s_ls {
 	int		r;
 	int		l_r;
 	int		a;
+	int		l_a;
 	int		t;
 
 	char	**args;
@@ -145,6 +146,7 @@ void			free_dirs(t_ls *ls);
 /*
 ** parcer.c
 */
+void			parse_flags(t_ls *ls, char a);
 void			put_usage(char a);
 int				parcer(t_ls *ls, int argc, char **argv);
 
