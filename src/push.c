@@ -6,7 +6,7 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 11:08:25 by pcollio-          #+#    #+#             */
-/*   Updated: 2019/03/13 00:41:14 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/13 05:41:06 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ char		**push_dir_files_to_str(char *path, char **obj, t_ls *ls)
 				push_files_dir(ls, dir, &obj, &i);
 		closedir(d);
 	}
+	else
+		ft_printf("ft_ls: %s: Permission denied\n", path);
 	return (obj);
 }
 
