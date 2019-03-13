@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 10:01:40 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/13 06:28:56 by drestles         ###   ########.fr       */
+/*   Updated: 2019/03/14 00:20:24 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void		ls_rec(char *str, t_ls *ls)
 	int		n;
 
 	objs = ls_rec_init(ls, str, &n);
-	if (ls->l)
+	if (ls->l || ls->o)
 		l_format_rows_objs(objs, n, ls);
 	else
 		format_rows_objs(objs, n, ls);

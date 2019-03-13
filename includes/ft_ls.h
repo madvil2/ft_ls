@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 14:53:44 by pcollio-          #+#    #+#             */
-/*   Updated: 2019/03/13 06:10:16 by drestles         ###   ########.fr       */
+/*   Updated: 2019/03/14 00:23:21 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,9 @@ typedef struct	s_ls {
 	int		a;
 	int		l_a;
 	int		t;
+	int		u;
+	int		c;
+	int		o;
 
 	char	**args;
 	int		index;
@@ -83,7 +86,6 @@ typedef struct	s_ls {
 /*
 ** format.c
 */
-void			init_format(t_format *format);
 int				format_rows(t_ls *ls);
 int				format_rows_objs(char **objs, int n, t_ls *ls);
 void			format_max(char *file, t_format *format);
@@ -103,6 +105,16 @@ int				vtorya_hernya(const char *path);
 int				get_major(char *path);
 int				get_minor(char *path);
 int				get_time(char *f1, char *f2, t_ls *ls);
+int				get_time_access(char *f1, char *f2, t_ls *ls);
+int				get_time_change(char *f1, char *f2, t_ls *ls);
+
+/*
+** get_l_four.c
+*/
+void			init_format(t_format *format);
+void			sort_time_change(t_ls *ls, int i, int j);
+void			l_format_print_dev_help(char *file, t_format *format);
+void			sort_time_change_objs(char **a, char **b, t_ls *ls);
 
 /*
 ** get_l_two.c
@@ -137,7 +149,7 @@ int				main(int argc, char **argv);
 /*
 ** malloc.c
 */
-int				init_struct(t_ls *ls);
+void			init_struct(t_ls *ls);
 void			malloc_dir(int n, t_ls *ls);
 void			malloc_files(int n, t_ls *ls);
 void			free_files(t_ls *ls);

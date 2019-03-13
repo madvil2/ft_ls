@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   malloc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 11:13:09 by pcollio-          #+#    #+#             */
-/*   Updated: 2019/03/13 06:00:03 by drestles         ###   ########.fr       */
+/*   Updated: 2019/03/14 00:18:15 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_ls.h"
 
-int			init_struct(t_ls *ls)
+void		init_struct(t_ls *ls)
 {
 	ls->l = 0;
 	ls->r = 0;
@@ -20,6 +20,9 @@ int			init_struct(t_ls *ls)
 	ls->l_a = 0;
 	ls->a = 0;
 	ls->t = 0;
+	ls->u = 0;
+	ls->c = 0;
+	ls->o = 0;
 	ls->index = 0;
 	ls->max = 0;
 	ls->index_f = 0;
@@ -28,7 +31,6 @@ int			init_struct(t_ls *ls)
 	ls->max = 0;
 	ls->er = 0;
 	ls->path = 0;
-	return (0);
 }
 
 void		malloc_dir(int n, t_ls *ls)

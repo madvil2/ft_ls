@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parcer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 13:47:04 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/13 06:37:25 by drestles         ###   ########.fr       */
+/*   Updated: 2019/03/14 00:20:44 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ void		parse_flags(t_ls *ls, char a)
 		ls->a = 1;
 	else if (a == 't')
 		ls->t = 1;
+	else if (a == 'u')
+		ls->u = 1;
+	else if (a == 'c')
+		ls->c = 1;
+	else if (a == 'o')
+		ls->o = 1;
 	else
 		put_usage(a);
 }

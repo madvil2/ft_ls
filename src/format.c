@@ -3,26 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   format.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 10:01:49 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/13 06:37:28 by drestles         ###   ########.fr       */
+/*   Updated: 2019/03/14 00:22:40 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	init_format(t_format *format)
-{
-	format->max0 = 0;
-	format->max1 = 0;
-	format->max2 = 0;
-	format->max3 = 0;
-	format->max4 = 0;
-	format->max5 = 0;
-}
-
-int		format_rows(t_ls *ls)
+int				format_rows(t_ls *ls)
 {
 	struct winsize	w;
 	t_format		format;
@@ -51,7 +41,7 @@ int		format_rows(t_ls *ls)
 	return (0);
 }
 
-int		format_rows_objs(char **objs, int n, t_ls *ls)
+int				format_rows_objs(char **objs, int n, t_ls *ls)
 {
 	struct winsize	w;
 	t_format		format;
@@ -80,7 +70,7 @@ int		format_rows_objs(char **objs, int n, t_ls *ls)
 	return (0);
 }
 
-void	format_max(char *file, t_format *format)
+void			format_max(char *file, t_format *format)
 {
 	format->max = ft_intlen(vtorya_hernya(file));
 	if (format->max > format->max0)
@@ -102,7 +92,21 @@ void	format_max(char *file, t_format *format)
 		format->max5 = format->max;
 }
 
-int		l_format_rows(t_ls *ls)
+static void		l_format_rows_help(t_ls *ls, t_format *format, int i)
+{
+	if (ls->o)
+		ft_printf("%s %*d %*s %*ld %s %s\n", format->chmod, format->max0,
+				vtorya_hernya(ls->files[i]), format->max1, format->user,
+				format->max5, get_size(ls->files[i]),
+				format->date, format->name);
+	else
+		ft_printf("%s %*d %*s %*s %*d %s %s\n", format->chmod, format->max0,
+				vtorya_hernya(ls->files[i]), format->max1, format->user,
+				format->max2, format->group, format->max5,
+				get_size(ls->files[i]), format->date, format->name);
+}
+
+int				l_format_rows(t_ls *ls)
 {
 	t_format	format;
 	int			i;
@@ -122,10 +126,7 @@ int		l_format_rows(t_ls *ls)
 		format.group = get_group(ls->files[i]);
 		format.date = get_last_time(ls->files[i]);
 		format.name = put_link(ls->files[i]);
-		ft_printf("%s %*d %*s %*s %*lld %s %s\n", format.chmod, format.max0,
-		vtorya_hernya(ls->files[i]), format.max1, format.user, format.max2,
-		format.group, format.max5, get_size(ls->files[i]),
-		format.date, format.name);
+		l_format_rows_help(ls, &format, i);
 		i++;
 	}
 	return (0);

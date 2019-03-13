@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 11:14:34 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/13 00:41:14 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/14 00:21:28 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,27 @@ static void	sort_time(t_ls *ls, int i, int j)
 		ls->files[j] = tmp;
 	}
 	if (get_time((ls->files[i]), (ls->files[j]), ls) == 0)
+	{
+		if (ft_strcmp((ls->files[i]), (ls->files[j])) > 0)
+		{
+			tmp = ls->files[i];
+			ls->files[i] = ls->files[j];
+			ls->files[j] = tmp;
+		}
+	}
+}
+
+static void	sort_time_access(t_ls *ls, int i, int j)
+{
+	char *tmp;
+
+	if (get_time_access((ls->files[i]), (ls->files[j]), ls) >= 0)
+	{
+		tmp = ls->files[i];
+		ls->files[i] = ls->files[j];
+		ls->files[j] = tmp;
+	}
+	if (get_time_access((ls->files[i]), (ls->files[j]), ls) == 0)
 	{
 		if (ft_strcmp((ls->files[i]), (ls->files[j])) > 0)
 		{
@@ -75,6 +96,10 @@ int			sort(t_ls *ls)
 		{
 			if (ls->t)
 				sort_time(ls, i, j);
+			else if (ls->u)
+				sort_time_access(ls, i, j);
+			else if (ls->c)
+				sort_time_change(ls, i, j);
 			else
 				sort_ascii(ls, i, j);
 			j++;
