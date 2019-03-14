@@ -6,7 +6,7 @@
 /*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 10:01:49 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/14 00:22:40 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/14 19:17:42 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,15 @@ int				format_rows_objs(char **objs, int n, t_ls *ls)
 	return (0);
 }
 
-void			format_max(char *file, t_format *format)
+void			format_max(char *file, t_format *format, t_ls *ls)
 {
 	format->max = ft_intlen(vtorya_hernya(file));
 	if (format->max > format->max0)
 		format->max0 = format->max;
-	format->max = ft_strlen(get_user(file));
+	format->max = ft_strlen(get_user(file, ls));
 	if (format->max > format->max1)
 		format->max1 = format->max;
-	format->max = ft_strlen(get_group(file));
+	format->max = ft_strlen(get_group(file, ls));
 	if (format->max > format->max2)
 		format->max2 = format->max;
 	format->max = ft_intlen(get_major(file));
@@ -115,15 +115,15 @@ int				l_format_rows(t_ls *ls)
 	i = 0;
 	while (i < ls->index_f)
 	{
-		format_max(ls->files[i], &format);
+		format_max(ls->files[i], &format, ls);
 		i++;
 	}
 	i = 0;
 	while (i < ls->index_f)
 	{
 		format.chmod = get_chmod(ls->files[i]);
-		format.user = get_user(ls->files[i]);
-		format.group = get_group(ls->files[i]);
+		format.user = get_user(ls->files[i], ls);
+		format.group = get_group(ls->files[i], ls);
 		format.date = get_last_time(ls->files[i]);
 		format.name = put_link(ls->files[i]);
 		l_format_rows_help(ls, &format, i);

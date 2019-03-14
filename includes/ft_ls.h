@@ -6,7 +6,7 @@
 /*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 14:53:44 by pcollio-          #+#    #+#             */
-/*   Updated: 2019/03/14 00:23:21 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/14 19:19:42 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ typedef struct	s_ls {
 	int		a;
 	int		l_a;
 	int		t;
-	int		u;
-	int		c;
 	int		o;
+	int		f;
+	int		n;
 
 	char	**args;
 	int		index;
@@ -88,7 +88,7 @@ typedef struct	s_ls {
 */
 int				format_rows(t_ls *ls);
 int				format_rows_objs(char **objs, int n, t_ls *ls);
-void			format_max(char *file, t_format *format);
+void			format_max(char *file, t_format *format, t_ls *ls);
 int				l_format_rows(t_ls *ls);
 
 /*
@@ -105,22 +105,18 @@ int				vtorya_hernya(const char *path);
 int				get_major(char *path);
 int				get_minor(char *path);
 int				get_time(char *f1, char *f2, t_ls *ls);
-int				get_time_access(char *f1, char *f2, t_ls *ls);
-int				get_time_change(char *f1, char *f2, t_ls *ls);
 
 /*
 ** get_l_four.c
 */
 void			init_format(t_format *format);
-void			sort_time_change(t_ls *ls, int i, int j);
 void			l_format_print_dev_help(char *file, t_format *format);
-void			sort_time_change_objs(char **a, char **b, t_ls *ls);
 
 /*
 ** get_l_two.c
 */
-char			*get_user(const char *path);
-char			*get_group(const char *path);
+char			*get_user(const char *path, t_ls *ls);
+char			*get_group(const char *path, t_ls *ls);
 off_t			get_size(char *path);
 char			*get_last_time(char *path);
 char			*put_link(char *path);

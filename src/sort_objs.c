@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_objs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 11:14:32 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/13 00:41:14 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/14 17:50:21 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char		**sort_objs(char **obj, int n, t_ls *ls)
 		{
 			if (ls->t)
 				sort_time_objs(&(obj[i]), &(obj[j]), ls);
-			else
+			else if (!ls->f)
 				sort_ascii_objs(&(obj[i]), &(obj[j]));
 			j++;
 		}

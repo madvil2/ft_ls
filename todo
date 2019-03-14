@@ -1,8 +1,10 @@
 ❌FLAGS:
 {
 	✅-A
-	❌-p
-	❌-S
-	❌-u
-	❌-1 (-l главнее -1)
+	✅-o
+	✅-f
+	✅-n
+	❌-1 (-l главнее -1) | issaty(1)
+	❌ fix ./ in permission denied
+	❌ sort args
 }

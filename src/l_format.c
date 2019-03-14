@@ -6,7 +6,7 @@
 /*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 12:25:18 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/14 00:20:03 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/14 19:20:19 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static void	l_format_norm(char *file, t_format *format, t_ls *ls)
 {
 	format->chmod = get_chmod(file);
-	format->user = get_user(file);
-	format->group = get_group(file);
+	format->user = get_user(file, ls);
+	format->group = get_group(file, ls);
 	format->date = get_last_time(file);
 	format->name = put_link(file);
 	if (ls->o)
@@ -36,10 +36,10 @@ static void	l_format_norm(char *file, t_format *format, t_ls *ls)
 static void	l_format_print_dev(char *file, t_format *format, t_ls *ls)
 {
 	format->chmod = get_chmod(file);
-	format->user = get_user(file);
+	format->user = get_user(file, ls);
 	if (format->user[0] == '0')
 		return ;
-	format->group = get_group(file);
+	format->group = get_group(file, ls);
 	format->date = get_last_time(file);
 	format->name = put_link(file);
 	if (ls->o)
@@ -80,7 +80,7 @@ static void	l_format_rows_objs_format_and_free(t_ls *ls,
 	char	*file;
 
 	file = ft_strjoin(ls->path, (*objs)[i]);
-	format_max(file, format);
+	format_max(file, format, ls);
 	free(file);
 }
 
