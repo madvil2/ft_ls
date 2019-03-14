@@ -6,5 +6,6 @@
 	✅-n
 	❌-1 (-l главнее -1) | issaty(1)
 	❌ fix ./ in permission denied
-	❌ sort args
+	✅ sort args
 }
+❌сделать usage
