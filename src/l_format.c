@@ -6,7 +6,7 @@
 /*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 12:25:18 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/14 20:34:49 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/14 22:18:23 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ static void	l_format_print_dev(char *file, t_format *format, t_ls *ls)
 	if (ls->o)
 		l_format_print_dev_help(file, format);
 	else if (obj_type(file) == 2 || obj_type(file) == 3)
-		ft_printf("%s %*d %-*s  %-*s  %*d, %*d %s %s\n", format->chmod,
+		printf("%s %*d %-*s  %-*s  %*d, %*d %s %s\n", format->chmod,
 			format->max0, vtorya_hernya(file), format->max1, format->user,
 			format->max2, format->group, format->max3, get_major(file),
 			format->max4, get_minor(file), format->date, format->name);
 	else
-		ft_printf("%s %*d %-*s  %-*s  %*s %*lld %s %s\n", format->chmod,
+		printf("%s %*d %-*s  %-*s  %*s %*lld %s %s\n", format->chmod,
 			format->max0, vtorya_hernya(file), format->max1, format->user,
-			format->max2, format->group, format->max4, "     ", format->max5,
+			format->max2, format->group, format->max4, "", format->max5,
 			get_size(file), format->date, format->name);
 	free(format->date);
 	free(format->chmod);

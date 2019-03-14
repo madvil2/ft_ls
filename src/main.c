@@ -6,7 +6,7 @@
 /*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 10:01:40 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/14 21:09:25 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/14 21:21:30 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ int			main(int argc, char **argv)
 	t_ls ls;
 
 	init_struct(&ls);
+	if (isatty(1) == 0)
+		ls.one = 1;
 	ft_ls(&ls, argc, argv);
 	return (0);
 }

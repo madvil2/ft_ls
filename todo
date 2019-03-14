@@ -1,11 +1,11 @@
-❌FLAGS:
+✅FLAGS:
 {
 	✅-A
 	✅-o
 	✅-f
 	✅-n
-	❌-1 (-l главнее -1) | issaty(1)
-	❌ fix ./ in permission denied
+	✅-1 (-l главнее -1) | issaty(1)
+	✅ fix ./ in permission denied
 	✅ sort args
 }
-❌сделать usage
+✅сделать usage

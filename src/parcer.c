@@ -6,25 +6,15 @@
 /*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 13:47:04 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/14 20:54:14 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/14 22:18:51 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_ls.h"
 
-void		parse_flags(t_ls *ls, char a)
+static int	parse_help(t_ls *ls, char a)
 {
-	if (a == 'l')
-		ls->l = 1;
-	else if (a == 'r')
-		ls->r = 1;
-	else if (a == 'R')
-		ls->l_r = 1;
-	else if (a == 'A')
-		ls->l_a = 1;
-	else if (a == 'a')
-		ls->a = 1;
-	else if (a == 't')
+	if (a == 't')
 		ls->t = 1;
 	else if (a == 'o')
 		ls->o = 1;
@@ -42,13 +32,23 @@ void		parse_flags(t_ls *ls, char a)
 	}
 	else
 		put_usage(a);
+	return (0);
 }
 
-void		put_usage(char a)
+void		parse_flags(t_ls *ls, char a)
 {
-	ft_printf("ls: illegal option -- %c\n", a);
-	ft_printf("usage: ls [-ARaflnort1] [file ...]");
-	exit(1);
+	if (a == 'l')
+		ls->l = 1;
+	else if (a == 'r')
+		ls->r = 1;
+	else if (a == 'R')
+		ls->l_r = 1;
+	else if (a == 'A')
+		ls->l_a = 1;
+	else if (a == 'a')
+		ls->a = 1;
+	else if (parse_help(ls, a))
+		;
 }
 
 static void	count_obj(int argc, char **argv, int j, t_ls *ls)

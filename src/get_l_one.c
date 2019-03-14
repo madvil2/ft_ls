@@ -6,7 +6,7 @@
 /*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 12:56:26 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/14 17:34:21 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/14 22:18:51 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,10 @@ static void	chmod_help(struct stat st, char **chmod)
 		(*chmod)[0] = 'b';
 	else if ((st.st_mode & S_IFMT) == S_IFLNK)
 		(*chmod)[0] = 'l';
+	else if ((st.st_mode & S_IFMT) == S_IFIFO)
+		(*chmod)[0] = 'p';
+	else if ((st.st_mode & S_IFMT) == S_IFSOCK)
+		(*chmod)[0] = 's';
 	(*chmod)[1] = (perm & S_IRUSR) ? 'r' : '-';
 	(*chmod)[2] = (perm & S_IWUSR) ? 'w' : '-';
 	(*chmod)[3] = (perm & S_IXUSR) ? 'x' : '-';
@@ -84,6 +88,12 @@ static void	chmod_help(struct stat st, char **chmod)
 	(*chmod)[7] = (perm & S_IROTH) ? 'r' : '-';
 	(*chmod)[8] = (perm & S_IWOTH) ? 'w' : '-';
 	(*chmod)[9] = (perm & S_IXOTH) ? 'x' : '-';
+	if (st.st_mode & 512)
+		(*chmod)[9] = ((*chmod)[9] == 'x' ? 't' : 'T');
+	if (st.st_mode & 1024)
+		(*chmod)[6] = ((*chmod)[6] == 'x' ? 's' : 'S');
+	if (st.st_mode & 2048)
+		(*chmod)[3] = ((*chmod)[3] == 'x' ? 's' : 'S');
 }
 
 char		*get_chmod(char *path)

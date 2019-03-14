@@ -6,7 +6,7 @@
 #    By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/19 19:52:14 by pcollio-          #+#    #+#              #
-#    Updated: 2019/03/14 17:34:21 by pcollio-         ###   ########.fr        #
+#    Updated: 2019/03/14 22:18:51 by pcollio-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ IFLAGS :=		-I $(INC_PATH) -I $(LIB_PATH)
 LFLAGS :=		-lft -L $(LIB_PATH)
 
 HFILES :=		ft_ls
-FILES :=		format get_l_one get_l_two get_l_tree get_l_four init main malloc push sort_files sort_objs utils l_format parcer
+FILES :=		format get_l_one get_l_two get_l_tree foo init main malloc push sort_files sort_objs utils l_format parcer
 LIB :=			$(LIB_PATH)libft.a
 
 HDRS :=			$(addprefix $(INC_PATH), $(addsuffix .h, $(HFILES)))
