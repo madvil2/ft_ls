@@ -6,7 +6,7 @@
 /*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 14:53:44 by pcollio-          #+#    #+#             */
-/*   Updated: 2019/03/14 19:19:42 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/14 21:01:04 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct	s_ls {
 	int		o;
 	int		f;
 	int		n;
+	int		one;
 
 	char	**args;
 	int		index;
@@ -90,6 +91,8 @@ int				format_rows(t_ls *ls);
 int				format_rows_objs(char **objs, int n, t_ls *ls);
 void			format_max(char *file, t_format *format, t_ls *ls);
 int				l_format_rows(t_ls *ls);
+void			one_format_rows(t_ls *ls);
+void			one_format_rows_objs(char **objs, int n);
 
 /*
 ** get_l_one.c

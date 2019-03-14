@@ -6,7 +6,7 @@
 /*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 10:01:40 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/14 17:34:21 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/14 21:09:25 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void		ls_rec(char *str, t_ls *ls)
 	objs = ls_rec_init(ls, str, &n);
 	if (ls->l || ls->o)
 		l_format_rows_objs(objs, n, ls);
+	else if (ls->one)
+		one_format_rows_objs(objs, n);
 	else
 		format_rows_objs(objs, n, ls);
 	ls->rec++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 11:20:38 by pcollio-          #+#    #+#             */
-/*   Updated: 2019/03/14 17:34:21 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/14 21:02:35 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void		ls_files(t_ls *ls)
 	sort(ls);
 	if (ls->l)
 		l_format_rows(ls);
+	else if (ls->one)
+		one_format_rows(ls);
 	else
 		format_rows(ls);
 	if (ls->index_f > 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 11:08:25 by pcollio-          #+#    #+#             */
-/*   Updated: 2019/03/14 17:34:21 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/14 20:54:55 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char		**push_dir_files_to_str(char *path, char **obj, t_ls *ls)
 		closedir(d);
 	}
 	else
-		ft_printf("ft_ls: %s: Permission denied\n", path);
+		ft_printf("ft_ls: %s: Permission denied\n", basename(path));
 	return (obj);
 }
 

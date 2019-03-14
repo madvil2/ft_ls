@@ -6,7 +6,7 @@
 /*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 13:47:04 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/14 19:02:11 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/14 20:54:14 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void		parse_flags(t_ls *ls, char a)
 		ls->t = 1;
 	else if (a == 'o')
 		ls->o = 1;
+	else if (a == '1')
+		ls->one = 1;
 	else if (a == 'f')
 	{
 		ls->f = 1;
@@ -45,7 +47,7 @@ void		parse_flags(t_ls *ls, char a)
 void		put_usage(char a)
 {
 	ft_printf("ls: illegal option -- %c\n", a);
-	ft_printf("usage: ls [-lrRat] [file ...]");
+	ft_printf("usage: ls [-ARaflnort1] [file ...]");
 	exit(1);
 }
 
