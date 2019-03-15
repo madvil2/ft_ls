@@ -6,7 +6,7 @@
 /*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 12:56:28 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/14 17:46:55 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/15 17:33:26 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,24 @@ int		get_time(char *f1, char *f2, t_ls *ls)
 	if (s1.st_mtime == s2.st_mtime)
 		return (0);
 	return (-1);
+}
+
+off_t	get_total_size(char **files, t_ls *ls)
+{
+	off_t		total;
+	struct stat	st;
+	int			i;
+	char		*file;
+
+	i = 0;
+	total = 0;
+	while (files[i] != NULL)
+	{
+		file = ft_strjoin(ls->path, files[i]);
+		lstat(file, &st);
+		total += st.st_blocks;
+		free(file);
+		i++;
+	}
+	return (total);
 }
