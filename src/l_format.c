@@ -6,7 +6,7 @@
 /*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 12:25:18 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/15 18:55:08 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/15 19:01:21 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static void	l_format_norm(char *file, t_format *format, t_ls *ls)
 static void	l_format_print_dev(char *file, t_format *format, t_ls *ls)
 {
 	format->chmod = get_chmod(file);
+	if (format->chmod[0] == '0')
+		return ;
 	format->user = get_user(file, ls);
 	if (format->user[0] == '0')
 		return ;
