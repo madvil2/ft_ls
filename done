@@ -106,6 +106,18 @@ TO ASK:
     ❌что мы упустили?
 }
 
+✅FLAGS:
+{
+	✅-A
+	✅-o
+	✅-f
+	✅-n
+	✅-1 (-l главнее -1) | issaty(1)
+	✅ fix ./ in permission denied
+	✅ sort args
+}
+✅сделать usage
+
 if (listxattr((*file)->name, NULL, 1, XATTR_NOFOLLOW) > 0)
 "@"
 
