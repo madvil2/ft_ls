@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 11:14:34 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/14 18:14:43 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/16 00:43:40 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,6 @@ int			sort(t_ls *ls)
 	}
 	if (ls->r)
 		sort_rec(ls);
+	sort_dir(ls);
 	return (0);
 }

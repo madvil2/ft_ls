@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   format.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 10:01:49 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/14 22:20:03 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/16 00:23:29 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void		l_format_rows_help(t_ls *ls, t_format *format, int i)
 				vtorya_hernya(ls->files[i]), format->max1, format->user,
 				format->max2, format->group, format->max5,
 				get_size(ls->files[i]), format->date, format->name);
+	free_format(format);
 }
 
 void			one_format_rows(t_ls *ls)

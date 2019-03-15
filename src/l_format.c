@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   l_format.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 12:25:18 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/15 19:01:21 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/16 00:27:34 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,37 +28,34 @@ static void	l_format_norm(char *file, t_format *format, t_ls *ls)
 				vtorya_hernya(file), format->max1, format->user, format->max2,
 				format->group, format->max5, get_size(file), format->date,
 				format->name);
-	free(format->date);
-	free(format->chmod);
-	free(format->name);
+	free_format(format);
 }
 
 static void	l_format_print_dev(char *file, t_format *format, t_ls *ls)
 {
 	format->chmod = get_chmod(file);
 	if (format->chmod[0] == '0')
+	{
+		free(format->chmod);
 		return ;
+	}
 	format->user = get_user(file, ls);
 	if (format->user[0] == '0')
+	{
+		free_format_mini(format);
 		return ;
+	}
 	format->group = get_group(file, ls);
 	format->date = get_last_time(file);
 	format->name = put_link(file);
 	if (ls->o)
 		l_format_print_dev_help(file, format);
 	else if (obj_type(file) == 2 || obj_type(file) == 3)
-		printf("%s %*d %-*s  %-*s  %*d, %*d %s %s\n", format->chmod,
-			format->max0, vtorya_hernya(file), format->max1, format->user,
-			format->max2, format->group, format->max3, get_major(file),
-			format->max4, get_minor(file), format->date, format->name);
+		print_dev(format, file, 0);
 	else
-		printf("%s %*d %-*s  %-*s  %*lld %s %s\n", format->chmod,
-			format->max0, vtorya_hernya(file), format->max1, format->user,
-			format->max2, format->group, format->max3 + format->max4 + 2,
-			get_size(file), format->date, format->name);
-	free(format->date);
-	free(format->chmod);
-	free(format->name);
+		print_dev(format, file, 1);
+	if (!ls->o)
+		free_format(format);
 }
 
 static void	l_format_dev(t_ls *ls, char **objs, t_format *format, int n)
