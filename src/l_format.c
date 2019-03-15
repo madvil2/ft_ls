@@ -6,7 +6,7 @@
 /*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 12:25:18 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/15 18:20:56 by pcollio-         ###   ########.fr       */
+/*   Updated: 2019/03/15 18:55:08 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ static void	l_format_print_dev(char *file, t_format *format, t_ls *ls)
 			format->max2, format->group, format->max3, get_major(file),
 			format->max4, get_minor(file), format->date, format->name);
 	else
-		printf("%s %*d %-*s  %-*s %*lld %s %s\n", format->chmod,
+		printf("%s %*d %-*s  %-*s  %*lld %s %s\n", format->chmod,
 			format->max0, vtorya_hernya(file), format->max1, format->user,
-			format->max2, format->group, format->max3 + format->max4 + 3,
+			format->max2, format->group, format->max3 + format->max4 + 2,
 			get_size(file), format->date, format->name);
 	free(format->date);
 	free(format->chmod);
