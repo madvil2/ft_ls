@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_l_two.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcollio- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 12:56:31 by drestles          #+#    #+#             */
-/*   Updated: 2019/03/15 23:17:34 by drestles         ###   ########.fr       */
+/*   Updated: 2019/03/16 20:18:23 by pcollio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,18 @@ char	*put_link(char *path)
 {
 	struct stat	st;
 	char		*res;
+	char		buf[PATH_MAX + 1];
+	char		*real_path;
 
+	real_path = realpath(path, buf);
 	lstat(path, &st);
 	if ((st.st_mode & S_IFMT) == S_IFLNK)
 	{
 		res = ft_strdup(basename(path));
 		res = ft_strjoin_left(res, " -> ");
-		res = ft_strjoin_left(res, basename(path));
+		res = ft_strjoin_left(res, basename(real_path));
+		free(real_path);
+		free(buf);
 		return (res);
 	}
 	return (ft_strdup(basename(path)));
