@@ -33,10 +33,13 @@ char	*get_group(const char *path, t_ls *ls)
 	struct group	*gr;
 
 	stat(path, &info);
-	gr = getgrgid(info.st_gid);
-	if (ls->n)
-		return (ft_itoa(gr->gr_gid));
-	return (ft_strdup((char *)gr->gr_name));
+	if ((gr = getgrgid(info.st_gid)))
+	{
+		if (ls->n)
+			return (ft_itoa(gr->gr_gid));
+		return (ft_strdup((char *) gr->gr_name));
+	}
+	return (ft_strdup("0"));
 }
 
 off_t	get_size(char *path)
